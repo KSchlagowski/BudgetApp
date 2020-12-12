@@ -19,16 +19,19 @@ namespace BudgetApp
             {
                 Console.WriteLine($"{homeBudgetMenu[i].Id}. {homeBudgetMenu[i].Name}");
             }
+            System.Console.WriteLine();
 
             string readedOperation = Console.ReadLine();
             int operation;
             Int32.TryParse(readedOperation, out operation);
+            System.Console.WriteLine();
 
             return operation;
         }
 
         public int AddNewHomeBudget()
         {
+            System.Console.WriteLine();
             System.Console.WriteLine("Wpisz numer miesiąca, na który tworzysz budżet.");
             string month = Console.ReadLine();
             int monthNumber;
@@ -36,29 +39,42 @@ namespace BudgetApp
             DateTime date = new DateTime(2020, monthNumber, 1);
             month = date.ToString("MMMM");
 
+            System.Console.WriteLine();
             System.Console.WriteLine("Wpisz kwotę netto, którą zarobiłeś w poprzednim miesiącu,");
             System.Console.WriteLine("lub średnią twoich zarobków, jeśli jesteś freelancerem.");
+            System.Console.WriteLine();
             decimal earnings;
             string readedEarnings = Console.ReadLine();
             Decimal.TryParse(readedEarnings, out earnings);
+            System.Console.WriteLine();
             System.Console.WriteLine("Wpisz kwotę swoich wydatków stałych ponoszonych co miesiąc.");
+            System.Console.WriteLine();
             decimal fixedExpenses;
             string readedFixedExpenses = Console.ReadLine();
             Decimal.TryParse(readedFixedExpenses, out fixedExpenses);
             
             decimal balance = earnings - fixedExpenses;
+            System.Console.WriteLine();
             System.Console.WriteLine($"Twoje saldo wynosi: {balance}");
+            System.Console.WriteLine();
+            System.Console.WriteLine();
             System.Console.WriteLine("Wpisz kwotę swoich planowanych wydatków jednorazowych.");
+            System.Console.WriteLine();
             decimal variableExpenses;
             string readedVariableExpenses = Console.ReadLine();
             Decimal.TryParse(readedVariableExpenses, out variableExpenses);
+            System.Console.WriteLine();
             System.Console.WriteLine("Wpisz swoją kwotę wydatków nieregularnych.");
+            System.Console.WriteLine();
             decimal unregularExpenses;
             string readedUnregularExpenses = Console.ReadLine();
             Decimal.TryParse(readedUnregularExpenses, out unregularExpenses);
             
             decimal finalBalance = balance - variableExpenses - unregularExpenses; 
+            System.Console.WriteLine();
             System.Console.WriteLine($"Twoje saldo finalne wynosi: {finalBalance}");
+            System.Console.WriteLine();
+            System.Console.WriteLine();
             
             if (finalBalance >= 0)
             {
@@ -68,16 +84,43 @@ namespace BudgetApp
             {
                 System.Console.WriteLine("Niestety saldo jest ujemne, czyli twój budżet został źle zaplanowany. Przemyśl na czym możesz zaoszczędzić.");
             }
-            
-            HomeBudget homeBudget = new HomeBudget(month, earnings, fixedExpenses, variableExpenses, unregularExpenses, balance, finalBalance);
+            System.Console.WriteLine();
+
+            HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, unregularExpenses, balance, finalBalance);
             homeBudgets.Add(homeBudget);
 
             return monthNumber;
         }
 
+        public void HomeBudgetByIdView (int id)
+        {
+            List<HomeBudget> toShow = new List<HomeBudget>();
+
+            foreach (var homeBudget in homeBudgets)
+            {
+                if (homeBudget.Id == id)
+                {
+                    toShow.Add(homeBudget);
+                }
+            }
+
+            foreach (var homeBudget in toShow)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Miesiąc: " + homeBudget.Month);
+                System.Console.WriteLine("Zarobki: " + homeBudget.Earnings);
+                System.Console.WriteLine("Wydatki stałe: " + homeBudget.FixedExpenses);
+                System.Console.WriteLine("Wydatki jednorazowe: " + homeBudget.VariableExpenses);
+                System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.UnregularExpenses);
+                System.Console.WriteLine("Saldo: " + homeBudget.Balance);
+                System.Console.WriteLine("Saldo finalne: " + homeBudget.FinalBalance);
+            }
+        }
+
         public void HomeBudgetInstruction()
         {
             System.Console.WriteLine("Tworzenie domowego budżetu wygląda następująco:");
+            System.Console.WriteLine();
             System.Threading.Thread.Sleep(2000);
             System.Console.WriteLine("Wpisz numer miesiąca, na który tworzysz budżet.");
             System.Console.WriteLine();
@@ -121,10 +164,10 @@ namespace BudgetApp
             System.Console.WriteLine("1335");
             System.Threading.Thread.Sleep(2000);
             System.Console.WriteLine();
-            System.Console.WriteLine("saldo finalne: 445");
+            System.Console.WriteLine("Saldo finalne: 445");
             System.Threading.Thread.Sleep(2000);
             System.Console.WriteLine("Brawo! Twoje saldo jest dodatnie! Z resztą pieniędzy możesz zrobić co zechcesz!");
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(4000);
             System.Console.WriteLine();
         }
     }

@@ -22,10 +22,12 @@ namespace BudgetApp
                 {
                     Console.WriteLine($"{mainMenu[i].Id}. {mainMenu[i].Name}");
                 }
+                System.Console.WriteLine();
 
                 string choose = Console.ReadLine();
                 int chooseResult = 0;
                 Int32.TryParse(choose, out chooseResult);
+                System.Console.WriteLine();
 
                 switch (chooseResult)
                 {
@@ -52,11 +54,12 @@ namespace BudgetApp
             actionService.AddNewAction(3, "Stan kont.", "Main");
             actionService.AddNewAction(4, "Wyjście", "Main");
 
-            actionService.AddNewAction(0, "Instrukcja.", "HomeBudgetMenu");
-            actionService.AddNewAction(1, "Tworzenie.", "HomeBudgetMenu");
+            actionService.AddNewAction(1, "Tworzenie budżetu domowego.", "HomeBudgetMenu");
             actionService.AddNewAction(2, "Wyświetlenie konkretnego budżetu.", "HomeBudgetMenu");
             actionService.AddNewAction(3, "Wyświetlenie wszystkich budżetów.", "HomeBudgetMenu");
-            actionService.AddNewAction(4, "Powrót.", "HomeBudgetMenu");
+            actionService.AddNewAction(4, "Instrukcja tworzenia budżetu.", "HomeBudgetMenu");
+            actionService.AddNewAction(5, "Usunięcie konkretnego budżetu.", "HomeBudgetMenu");
+            actionService.AddNewAction(6, "Powrót.", "HomeBudgetMenu");
             return actionService;
         }
 
@@ -71,16 +74,25 @@ namespace BudgetApp
 
                 switch (operation)
                 {
-                    case 0:
-                        homeBudgetService.HomeBudgetInstruction();
-                        break;
                     case 1:
                         var id = homeBudgetService.AddNewHomeBudget();
                         break;
                     case 2:
-                        System.Console.WriteLine("Not implemented yet.");
+                        System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz zobaczyć.");
+                        System.Console.WriteLine();
+                        int idToView;
+                        string readedId = Console.ReadLine();
+                        Int32.TryParse(readedId, out idToView);
+                        homeBudgetService.HomeBudgetByIdView(idToView);
+                        System.Console.WriteLine();
                         break;
                     case 3:
+                        System.Console.WriteLine("Not implemented yet.");
+                        break;
+                    case 4:
+                        homeBudgetService.HomeBudgetInstruction();
+                        break;
+                    case 5:
                         System.Console.WriteLine("Not implemented yet.");
                         break;
                     default: 
