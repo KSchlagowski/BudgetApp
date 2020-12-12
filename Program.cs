@@ -6,7 +6,7 @@ namespace BudgetApp
     {
         public static void Main(string[] args)
         {
-            HomeBudget homeBudget = new HomeBudget();
+            HomeBudgetService homeBudgetService = new HomeBudgetService();
             MenuActionService actionService = new MenuActionService();
             actionService = Initialize(actionService);
 
@@ -30,13 +30,13 @@ namespace BudgetApp
                 switch (chooseResult)
                 {
                     case 1:
-                        HomeBudgetMenu();
+                        HomeBudgetMenu(actionService);
                         break;
                     case 2:
-                        System.Console.WriteLine(2);
+                        System.Console.WriteLine("Not implemented yet.");
                         break;
                     case 3:
-                        System.Console.WriteLine(3);
+                        System.Console.WriteLine("Not implemented yet.");
                         break;
                     default: 
                         isProgramActive = false;
@@ -52,42 +52,36 @@ namespace BudgetApp
             actionService.AddNewAction(3, "Stan kont.", "Main");
             actionService.AddNewAction(4, "Wyjście", "Main");
 
-            actionService.AddNewAction(0, "Instrukcja.", "BudgetMainMenu");
-            actionService.AddNewAction(1, "Tworzenie.", "BudgetMainMenu");
-            actionService.AddNewAction(2, "Wyświetlanie.", "BudgetMainMenu");
-            actionService.AddNewAction(3, "Powrót.", "BudgetMainMenu");
+            actionService.AddNewAction(0, "Instrukcja.", "HomeBudgetMenu");
+            actionService.AddNewAction(1, "Tworzenie.", "HomeBudgetMenu");
+            actionService.AddNewAction(2, "Wyświetlenie konkretnego budżetu.", "HomeBudgetMenu");
+            actionService.AddNewAction(3, "Wyświetlenie wszystkich budżetów.", "HomeBudgetMenu");
+            actionService.AddNewAction(4, "Powrót.", "HomeBudgetMenu");
             return actionService;
         }
 
-        public static void HomeBudgetMenu()
+        public static void HomeBudgetMenu(MenuActionService actionService)
         {
-            HomeBudget homeBudget = new HomeBudget();
+            HomeBudgetService homeBudgetService = new HomeBudgetService();
 
             bool isHomeBudgetMenuActive = true;
             while (isHomeBudgetMenuActive)
             {
-                System.Console.WriteLine();
-                System.Console.WriteLine("Budżet domowy");
-                System.Console.WriteLine("0. Instrukcja.");
-                System.Console.WriteLine("1. Tworzenie.");
-                System.Console.WriteLine("2. Wyświetlanie.");
-                System.Console.WriteLine("q. Powrót.");
-                System.Console.WriteLine();
+                int operation = homeBudgetService.HomeBudgetMenuView(actionService);
 
-                string choose = Console.ReadLine();
-                int chooseResult = 0;
-                Int32.TryParse(choose, out chooseResult);
-
-                switch (chooseResult)
+                switch (operation)
                 {
                     case 0:
-                        homeBudget.HomeBudgetInstruction();
+                        homeBudgetService.HomeBudgetInstruction();
                         break;
                     case 1:
-                        System.Console.WriteLine(1);
+                        var id = homeBudgetService.AddNewHomeBudget();
                         break;
                     case 2:
-                        System.Console.WriteLine(2);
+                        System.Console.WriteLine("Not implemented yet.");
+                        break;
+                    case 3:
+                        System.Console.WriteLine("Not implemented yet.");
                         break;
                     default: 
                         isHomeBudgetMenuActive = false;
