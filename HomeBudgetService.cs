@@ -64,7 +64,8 @@ namespace BudgetApp
             string readedVariableExpenses = Console.ReadLine();
             Decimal.TryParse(readedVariableExpenses, out variableExpenses);
             System.Console.WriteLine();
-            System.Console.WriteLine("Wpisz swoją kwotę wydatków nieregularnych.");
+            System.Console.WriteLine("Wpisz swoją średnią kwotę wydatków nieregularnych.");
+            System.Console.WriteLine("Zaleca się, aby jednorazowe roczne wydatki typu wakacje, ubezpieczenie auta, wizyty u lekarza zsumować i podzielić przez 10, aby wyliczyć bezpieczną kwotę do odkładania na (FWN).");
             System.Console.WriteLine();
             decimal unregularExpenses;
             string readedUnregularExpenses = Console.ReadLine();
