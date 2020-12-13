@@ -29,7 +29,7 @@ namespace BudgetApp
             return operation;
         }
 
-        public int AddNewHomeBudget()
+        public int AddNewHomeBudgetView()
         {
             System.Console.WriteLine();
             System.Console.WriteLine("Wpisz numer miesiąca, na który tworzysz budżet.");
@@ -87,12 +87,17 @@ namespace BudgetApp
             }
             System.Console.WriteLine();
 
+            return AddNewHomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
+        }
+
+        public int AddNewHomeBudget(int monthNumber, string month, decimal earnings, decimal fixedExpenses, decimal variableExpenses, decimal irregularExpenses, decimal balance, decimal finalBalance)
+        {
             HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
             homeBudgets.Add(homeBudget);
 
             return monthNumber;
         }
-
+        
         public int RemoveHomeBudgetById (int id)
         {
             foreach (var homeBudget in homeBudgets)
@@ -110,7 +115,7 @@ namespace BudgetApp
             System.Console.WriteLine();
             System.Console.WriteLine("Nie można znaleźć budżetu na podany miesiąc.");
             System.Console.WriteLine();
-            return 0;
+            return -1;
         }
 
         public void HomeBudgetByIdView (int id)

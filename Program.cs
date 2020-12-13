@@ -40,7 +40,7 @@ namespace BudgetApp
                         HomeBudgetMenu(actionService);
                         break;
                     case 2:
-                        System.Console.WriteLine("Not implemented yet.");
+                        ExpenseMenu(actionService);
                         break;
                     case 3:
                         FundsMenu(actionService, irregularExpensesFund, emergencyFund, securityFund, specialPurposeFund);
@@ -73,6 +73,12 @@ namespace BudgetApp
             actionService.AddNewAction(5, "Wyświetl stan funduszy.", "FundsMenu");
             actionService.AddNewAction(6, "Instrukcja.", "FundsMenu");
             actionService.AddNewAction(7, "Wyjście", "FundsMenu");
+
+            actionService.AddNewAction(1, "Tworzenie nowego wydatku.", "ExpenseMenu");
+            actionService.AddNewAction(2, "Wyświetlenie konkretnego wydatku.", "ExpenseMenu");
+            actionService.AddNewAction(3, "Wyświetlenie wszystkich wydatków.", "ExpenseMenu");    
+            actionService.AddNewAction(4, "Usunięcie konkretnego wydatku.", "ExpenseMenu");
+            actionService.AddNewAction(5, "Powrót.", "ExpenseMenu");
             return actionService;
         }
 
@@ -88,7 +94,7 @@ namespace BudgetApp
                 switch (operation)
                 {
                     case 1:
-                        var idViewed = homeBudgetService.AddNewHomeBudget();
+                        var createdId = homeBudgetService.AddNewHomeBudgetView();
                         break;
                     case 2:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz zobaczyć.");
@@ -108,7 +114,7 @@ namespace BudgetApp
                         int idToRemove;
                         string readedIdToRemove = Console.ReadLine();
                         Int32.TryParse(readedIdToRemove, out idToRemove);
-                        var idRemoved = homeBudgetService.RemoveHomeBudgetById(idToRemove);
+                        var removedId = homeBudgetService.RemoveHomeBudgetById(idToRemove);
                         break;
                     case 5:
                         homeBudgetService.HomeBudgetInstruction();
@@ -167,6 +173,48 @@ namespace BudgetApp
                         break;
                     default:
                         isFundsMenuActive = false;
+                        break;
+                }
+            }
+        }
+
+        public static void ExpenseMenu(MenuActionService actionService)
+        {
+            ExpenseService expenseService = new ExpenseService();
+
+            bool isExpenseMenuActive = true;
+            while (isExpenseMenuActive)
+            {
+                int operation = expenseService.ExpenseMenuView(actionService);
+                
+                switch (operation)
+                {
+                    case 1:
+                        var createdId = expenseService.AddNewExpenseView();
+                        break;
+                    case 2:
+                        System.Console.WriteLine();
+                        System.Console.WriteLine("Wpisz id wydatku, który chcesz zobaczyć.");
+                        System.Console.WriteLine();
+                        int idToView;
+                        string readedIdToView = Console.ReadLine();
+                        Int32.TryParse(readedIdToView, out idToView);
+                        var viewedId = expenseService.ExpenseByIdView(idToView);
+                        break;
+                    case 3:
+                        expenseService.AllExpensesView();
+                        break;
+                    case 4:
+                        System.Console.WriteLine();
+                        System.Console.WriteLine("Wpisz id wydatku, który chcesz usunąć.");
+                        System.Console.WriteLine();
+                        int idToRemove;
+                        string readedIdToRemove = Console.ReadLine();
+                        Int32.TryParse(readedIdToRemove, out idToRemove);
+                        var removedId = expenseService.RemoveExpenseById(idToRemove);
+                        break;
+                    default:
+                        isExpenseMenuActive = false;
                         break;
                 }
             }
