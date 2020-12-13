@@ -67,11 +67,11 @@ namespace BudgetApp
             System.Console.WriteLine("Wpisz swoją średnią kwotę wydatków nieregularnych.");
             System.Console.WriteLine("Zaleca się, aby jednorazowe roczne wydatki typu wakacje, ubezpieczenie auta, wizyty u lekarza zsumować i podzielić przez 10, aby wyliczyć bezpieczną kwotę do odkładania na (FWN).");
             System.Console.WriteLine();
-            decimal unregularExpenses;
-            string readedUnregularExpenses = Console.ReadLine();
-            Decimal.TryParse(readedUnregularExpenses, out unregularExpenses);
+            decimal irregularExpenses;
+            string readedIrregularExpenses = Console.ReadLine();
+            Decimal.TryParse(readedIrregularExpenses, out irregularExpenses);
             
-            decimal finalBalance = balance - variableExpenses - unregularExpenses; 
+            decimal finalBalance = balance - variableExpenses - irregularExpenses; 
             System.Console.WriteLine();
             System.Console.WriteLine($"Twoje saldo finalne wynosi: {finalBalance}");
             System.Console.WriteLine();
@@ -87,7 +87,7 @@ namespace BudgetApp
             }
             System.Console.WriteLine();
 
-            HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, unregularExpenses, balance, finalBalance);
+            HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
             homeBudgets.Add(homeBudget);
 
             return monthNumber;
@@ -134,7 +134,7 @@ namespace BudgetApp
                 System.Console.WriteLine("Zarobki: " + homeBudget.Earnings);
                 System.Console.WriteLine("Wydatki stałe: " + homeBudget.FixedExpenses);
                 System.Console.WriteLine("Wydatki jednorazowe: " + homeBudget.VariableExpenses);
-                System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.UnregularExpenses);
+                System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.IrregularExpenses);
                 System.Console.WriteLine("Saldo: " + homeBudget.Balance);
                 System.Console.WriteLine("Saldo finalne: " + homeBudget.FinalBalance);
             }
@@ -143,6 +143,14 @@ namespace BudgetApp
             {
                 System.Console.WriteLine();
                 System.Console.WriteLine("Budżet o podanym miesiącu nie został znaleziony.");
+            }
+        }
+
+        public void AllHomeBudgetsView ()
+        {
+            foreach (var homeBudget in homeBudgets)
+            {
+                HomeBudgetByIdView(homeBudget.Id);
             }
         }
 

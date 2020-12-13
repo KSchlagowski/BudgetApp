@@ -6,8 +6,13 @@ namespace BudgetApp
     {
         public static void Main(string[] args)
         {
-            HomeBudgetService homeBudgetService = new HomeBudgetService();
             MenuActionService actionService = new MenuActionService();
+
+            IrregularExpensesFund irregularExpensesFund = new IrregularExpensesFund();
+            EmergencyFund emergencyFund = new EmergencyFund();
+            SecurityFund securityFund = new SecurityFund();
+            SpecialPurposeFund specialPurposeFund = new SpecialPurposeFund();
+            
             actionService = Initialize(actionService);
 
             bool isProgramActive = true;
@@ -38,7 +43,7 @@ namespace BudgetApp
                         System.Console.WriteLine("Not implemented yet.");
                         break;
                     case 3:
-                        System.Console.WriteLine("Not implemented yet.");
+                        FundsMenu(actionService, irregularExpensesFund, emergencyFund, securityFund, specialPurposeFund);
                         break;
                     default: 
                         isProgramActive = false;
@@ -51,15 +56,23 @@ namespace BudgetApp
         {
             actionService.AddNewAction(1, "Budżet domowy.", "Main");
             actionService.AddNewAction(2, "Spis wydatków.", "Main");
-            actionService.AddNewAction(3, "Stan kont.", "Main");
+            actionService.AddNewAction(3, "Stan funduszy.", "Main");
             actionService.AddNewAction(4, "Wyjście", "Main");
 
             actionService.AddNewAction(1, "Tworzenie budżetu domowego.", "HomeBudgetMenu");
             actionService.AddNewAction(2, "Wyświetlenie konkretnego budżetu.", "HomeBudgetMenu");
-            actionService.AddNewAction(3, "Wyświetlenie wszystkich budżetów.", "HomeBudgetMenu");
-            actionService.AddNewAction(4, "Instrukcja tworzenia budżetu.", "HomeBudgetMenu");
-            actionService.AddNewAction(5, "Usunięcie konkretnego budżetu.", "HomeBudgetMenu");
+            actionService.AddNewAction(3, "Wyświetlenie wszystkich budżetów.", "HomeBudgetMenu");    
+            actionService.AddNewAction(4, "Usunięcie konkretnego budżetu.", "HomeBudgetMenu");
+            actionService.AddNewAction(5, "Instrukcja tworzenia budżetu.", "HomeBudgetMenu");
             actionService.AddNewAction(6, "Powrót.", "HomeBudgetMenu");
+
+            actionService.AddNewAction(1, "Edytuj stan funduszu wydatków nieregularnych (FWN).", "FundsMenu");//fixed variable irregular
+            actionService.AddNewAction(2, "Edytuj stan funduszu awaryjny (FA).", "FundsMenu");
+            actionService.AddNewAction(3, "Edytuj stan funduszu bezpieczeństwa (FB).", "FundsMenu");
+            actionService.AddNewAction(4, "Edytuj stan funduszu celowy.", "FundsMenu");
+            actionService.AddNewAction(5, "Wyświetl stan funduszy.", "FundsMenu");
+            actionService.AddNewAction(6, "Instrukcja.", "FundsMenu");
+            actionService.AddNewAction(7, "Wyjście", "FundsMenu");
             return actionService;
         }
 
@@ -87,18 +100,18 @@ namespace BudgetApp
                         System.Console.WriteLine();
                         break;
                     case 3:
-                        System.Console.WriteLine("Not implemented yet.");
+                        homeBudgetService.AllHomeBudgetsView();
                         break;
                     case 4:
-                        homeBudgetService.HomeBudgetInstruction();
-                        break;
-                    case 5:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz usunąć.");
                         System.Console.WriteLine();
                         int idToRemove;
                         string readedIdToRemove = Console.ReadLine();
                         Int32.TryParse(readedIdToRemove, out idToRemove);
                         var idRemoved = homeBudgetService.RemoveHomeBudgetById(idToRemove);
+                        break;
+                    case 5:
+                        homeBudgetService.HomeBudgetInstruction();
                         break;
                     default: 
                         isHomeBudgetMenuActive = false;
@@ -107,6 +120,56 @@ namespace BudgetApp
             }
         }
 
-        
+        public static void FundsMenu(MenuActionService actionService, IrregularExpensesFund irregularExpensesFund, EmergencyFund emergencyFund, SecurityFund securityFund, SpecialPurposeFund specialPurposeFund)
+        {
+            FundsService fundsService = new FundsService();
+
+            bool isFundsMenuActive = true;
+            while (isFundsMenuActive)
+            {
+                int operation = fundsService.FundsMenuView(actionService);
+                
+                switch (operation)
+                {
+                    case 1:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        decimal irregularIncome;
+                        string readedIrregularIncome = Console.ReadLine();
+                        Decimal.TryParse(readedIrregularIncome, out irregularIncome);
+                        irregularExpensesFund = fundsService.EditIrregularExpensesFund(irregularExpensesFund, irregularIncome);
+                        break;
+                    case 2:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        decimal emergencyIncome;
+                        string readedEmergencyIncome = Console.ReadLine();
+                        Decimal.TryParse(readedEmergencyIncome, out emergencyIncome);
+                        emergencyFund = fundsService.EditEmergencyFund(emergencyFund, emergencyIncome);
+                        break;
+                    case 3:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        decimal securityIncome;
+                        string readedSecurityIncome = Console.ReadLine();
+                        Decimal.TryParse(readedSecurityIncome, out securityIncome);
+                        securityFund = fundsService.EditSecurityFund(securityFund, securityIncome);
+                        break;
+                    case 4:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        decimal specialPurposeIncome;
+                        string readedSpecialPurposeIncome = Console.ReadLine();
+                        Decimal.TryParse(readedSpecialPurposeIncome, out specialPurposeIncome);
+                        specialPurposeFund = fundsService.EditSpecialPurposeFund(specialPurposeFund, specialPurposeIncome);
+                        break;
+                    case 5:
+                        fundsService.AllFundsView(irregularExpensesFund, emergencyFund, securityFund, specialPurposeFund);
+                        break;
+                    case 6:
+                        fundsService.FundsInstruction();
+                        break;
+                    default:
+                        isFundsMenuActive = false;
+                        break;
+                }
+            }
+        }
     }
 }
