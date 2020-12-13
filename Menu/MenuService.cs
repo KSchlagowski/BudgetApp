@@ -3,6 +3,7 @@ using BudgetApp.Fund;
 
 namespace BudgetApp
 {
+    
     public class MenuService
     {
         OperationService operationService = new OperationService();
@@ -12,14 +13,6 @@ namespace BudgetApp
         {
             funds = new Funds();
             Initialize();
-        }
-
-        public enum MenuOption
-        {
-            MainMenu,
-            HomeBudgetMenu,
-            FundsMenu,
-            ExpenseMenu
         }
         public void CreateMenuView(MenuOption menuOption)
         {

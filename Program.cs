@@ -9,7 +9,7 @@ namespace BudgetApp
         {
             MenuService menuService = new MenuService();
 
-            menuService.CreateMenuView(MenuService.MenuOption.MainMenu);
+            menuService.CreateMenuView(MenuOption.MainMenu);
         }
     }
 }
