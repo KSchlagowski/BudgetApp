@@ -92,15 +92,37 @@ namespace BudgetApp
             return monthNumber;
         }
 
+        public int RemoveHomeBudgetById (int id)
+        {
+            foreach (var homeBudget in homeBudgets)
+            {
+                if (homeBudget.Id == id)
+                {
+                    homeBudgets.Remove(homeBudget);
+                    System.Console.WriteLine();
+                    System.Console.WriteLine("Budżet usunięto pomyślnie.");
+                    System.Console.WriteLine();
+                    return id;
+                }
+            }
+            
+            System.Console.WriteLine();
+            System.Console.WriteLine("Nie można znaleźć budżetu na podany miesiąc.");
+            System.Console.WriteLine();
+            return 0;
+        }
+
         public void HomeBudgetByIdView (int id)
         {
             List<HomeBudget> toShow = new List<HomeBudget>();
 
+            bool isBudgetFound = false;
             foreach (var homeBudget in homeBudgets)
             {
                 if (homeBudget.Id == id)
                 {
                     toShow.Add(homeBudget);
+                    isBudgetFound = true;
                 }
             }
 
@@ -114,6 +136,12 @@ namespace BudgetApp
                 System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.UnregularExpenses);
                 System.Console.WriteLine("Saldo: " + homeBudget.Balance);
                 System.Console.WriteLine("Saldo finalne: " + homeBudget.FinalBalance);
+            }
+
+            if (!isBudgetFound)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Budżet o podanym miesiącu nie został znaleziony.");
             }
         }
 

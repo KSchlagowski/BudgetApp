@@ -75,14 +75,14 @@ namespace BudgetApp
                 switch (operation)
                 {
                     case 1:
-                        var id = homeBudgetService.AddNewHomeBudget();
+                        var idViewed = homeBudgetService.AddNewHomeBudget();
                         break;
                     case 2:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz zobaczyć.");
                         System.Console.WriteLine();
                         int idToView;
-                        string readedId = Console.ReadLine();
-                        Int32.TryParse(readedId, out idToView);
+                        string readedIdToView = Console.ReadLine();
+                        Int32.TryParse(readedIdToView, out idToView);
                         homeBudgetService.HomeBudgetByIdView(idToView);
                         System.Console.WriteLine();
                         break;
@@ -93,7 +93,12 @@ namespace BudgetApp
                         homeBudgetService.HomeBudgetInstruction();
                         break;
                     case 5:
-                        System.Console.WriteLine("Not implemented yet.");
+                        System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz usunąć.");
+                        System.Console.WriteLine();
+                        int idToRemove;
+                        string readedIdToRemove = Console.ReadLine();
+                        Int32.TryParse(readedIdToRemove, out idToRemove);
+                        var idRemoved = homeBudgetService.RemoveHomeBudgetById(idToRemove);
                         break;
                     default: 
                         isHomeBudgetMenuActive = false;
