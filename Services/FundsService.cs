@@ -24,7 +24,7 @@ namespace BudgetApp.Services
             return operation;
         }
 
-        public void AllFundsView (IrregularExpensesFund irregularExpensesFund, EmergencyFund emergencyFund, SecurityFund securityFund, SpecialPurposeFund specialPurposeFund)
+        public void AllFundsView (Fund irregularExpensesFund, Fund emergencyFund, Fund securityFund, Fund specialPurposeFund)
         {
             System.Console.WriteLine();
             System.Console.WriteLine($"Stan funduszu wydatków nieregularnych (FWN): {irregularExpensesFund.Balance}");
@@ -34,19 +34,19 @@ namespace BudgetApp.Services
             System.Console.WriteLine();
         }
 
-        public IrregularExpensesFund EditIrregularExpensesFund (IrregularExpensesFund irregularExpensesFund, decimal income)
+        public Fund EditIrregularExpensesFund (Fund irregularExpensesFund, decimal income)
         {
             irregularExpensesFund.Balance += income;
             return irregularExpensesFund;
         }
 
-        public EmergencyFund EditEmergencyFund (EmergencyFund emergencyFund, decimal income)
+        public Fund EditEmergencyFund (Fund emergencyFund, decimal income)
         {
             emergencyFund.Balance += income;
             return emergencyFund;
         }
 
-        public SecurityFund EditSecurityFund (SecurityFund securityFund, decimal income)
+        public Fund EditSecurityFund (Fund securityFund, decimal income)
         {
             securityFund.Balance += income;
             return securityFund;

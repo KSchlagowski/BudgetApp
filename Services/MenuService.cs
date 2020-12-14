@@ -152,13 +152,13 @@ namespace BudgetApp.Services
                 {
                     case 1:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
-                        decimal irregularIncome;
-                        string readedIrregularIncome = Console.ReadLine();
-                        Decimal.TryParse(readedIrregularIncome, out irregularIncome);
+                        System.Console.WriteLine();
+                        decimal irregularIncome = operationService.ReadValueOperation();
                         funds.IrregularExpensesFund = fundsService.EditIrregularExpensesFund(funds.IrregularExpensesFund, irregularIncome);
                         break;
                     case 2:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
                         decimal emergencyIncome;
                         string readedEmergencyIncome = Console.ReadLine();
                         Decimal.TryParse(readedEmergencyIncome, out emergencyIncome);
@@ -166,6 +166,7 @@ namespace BudgetApp.Services
                         break;
                     case 3:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
                         decimal securityIncome;
                         string readedSecurityIncome = Console.ReadLine();
                         Decimal.TryParse(readedSecurityIncome, out securityIncome);
@@ -173,6 +174,7 @@ namespace BudgetApp.Services
                         break;
                     case 4:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
                         decimal specialPurposeIncome;
                         string readedSpecialPurposeIncome = Console.ReadLine();
                         Decimal.TryParse(readedSpecialPurposeIncome, out specialPurposeIncome);

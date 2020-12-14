@@ -15,6 +15,17 @@ namespace BudgetApp
             return operation;
         }
 
+        public decimal ReadValueOperation()
+        {
+            System.Console.WriteLine();
+            string readedOperation = Console.ReadLine();
+            int operation = 0;
+            Int32.TryParse(readedOperation, out operation);
+            System.Console.WriteLine();
+
+            return operation;
+        }
+
         public string ReadTextOperation()
         {
             System.Console.WriteLine();

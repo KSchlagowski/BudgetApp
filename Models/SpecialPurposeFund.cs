@@ -2,7 +2,7 @@
 
 namespace BudgetApp.Models
 {
-    public class SpecialPurposeFund : Funds
+    public class SpecialPurposeFund : Fund
     {
         public string PurposeDescription { get; set; }
     }

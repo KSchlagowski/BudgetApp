@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BudgetApp.Models;
 using BudgetApp.Services;
 
@@ -12,9 +13,9 @@ namespace BudgetApp
 
             menuService.CreateMenuView(MenuOption.MainMenu);
 
-            Funds funds = new Funds();
-            var a = funds.SpecialPurposeFundBalance;
-            var b = SpecialPurposeFund
+            List<object> lista = new List<object>();
+            lista.Add(1);
+            lista.Add("las");
         }
     }
 }

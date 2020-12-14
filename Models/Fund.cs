@@ -1,6 +1,6 @@
 namespace BudgetApp.Models
 {
-    public class SecurityFund
+    public class Fund
     {
         public decimal Balance { get; set; } = 0;
     }
