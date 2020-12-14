@@ -1,4 +1,4 @@
-namespace BudgetApp
+namespace BudgetApp.Models
 {
     public class Expense
     {

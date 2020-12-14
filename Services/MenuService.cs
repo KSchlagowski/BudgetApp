@@ -1,7 +1,7 @@
 using System;
-using BudgetApp.Fund;
+using BudgetApp.Models;
 
-namespace BudgetApp
+namespace BudgetApp.Services
 {
     
     public class MenuService
@@ -32,7 +32,7 @@ namespace BudgetApp
                     break;
             }
         }
-        public void Initialize()
+        private void Initialize()
         {
             actionService.AddNewAction(1, "Budżet domowy.", "Main");
             actionService.AddNewAction(2, "Spis wydatków.", "Main");

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 
-namespace BudgetApp
+using BudgetApp.Models;
+
+namespace BudgetApp.Services
 {
     public class MenuActionService
     {

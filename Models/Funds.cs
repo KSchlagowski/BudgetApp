@@ -1,26 +1,12 @@
-namespace BudgetApp.Fund
+namespace BudgetApp.Models
 {
     public class Funds
     {
-        public IrregularExpensesFund IrregularExpensesFund { get; set; }
-        public EmergencyFund EmergencyFund { get; set; }
-        public SecurityFund SecurityFund { get; set; }
-        public SpecialPurposeFund SpecialPurposeFund { get; set; }
+        public decimal IrregularExpensesFundBalance { get; set; } = 0;
+        public decimal EmergencyFundBalance { get; set; } = 0;
+        public decimal SecurityFundBalance { get; set; } = 0;
+        public decimal SpecialPurposeFundBalance { get; set; } = 0;
 
-        public Funds (IrregularExpensesFund irregularExpensesFund, EmergencyFund emergencyFund, SecurityFund securityFund, SpecialPurposeFund specialPurposeFund)
-        {
-            IrregularExpensesFund = irregularExpensesFund;
-            EmergencyFund = emergencyFund;
-            SecurityFund = securityFund;
-            SpecialPurposeFund = specialPurposeFund;
-        }
-
-        public Funds ()
-        {
-            IrregularExpensesFund = new IrregularExpensesFund();
-            EmergencyFund = new EmergencyFund();
-            SecurityFund = new SecurityFund();
-            SpecialPurposeFund = new SpecialPurposeFund();
-        }
+        
     }
 }

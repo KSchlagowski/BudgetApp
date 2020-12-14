@@ -1,6 +1,6 @@
 using System;
 
-namespace BudgetApp
+namespace BudgetApp.Models
 {
     public class HomeBudget
     {

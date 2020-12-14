@@ -1,8 +1,9 @@
-namespace BudgetApp
+
+
+namespace BudgetApp.Models
 {
-    public class SpecialPurposeFund
+    public class SpecialPurposeFund : Funds
     {
-        public decimal Balance { get; set; } = 0;
         public string PurposeDescription { get; set; }
     }
 }

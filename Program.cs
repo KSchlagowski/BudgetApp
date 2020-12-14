@@ -1,5 +1,6 @@
 ﻿using System;
-using BudgetApp.Fund;
+using BudgetApp.Models;
+using BudgetApp.Services;
 
 namespace BudgetApp
 {
@@ -10,6 +11,10 @@ namespace BudgetApp
             MenuService menuService = new MenuService();
 
             menuService.CreateMenuView(MenuOption.MainMenu);
+
+            Funds funds = new Funds();
+            var a = funds.SpecialPurposeFundBalance;
+            var b = SpecialPurposeFund
         }
     }
 }

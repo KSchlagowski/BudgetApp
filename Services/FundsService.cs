@@ -1,6 +1,8 @@
 using System;
 
-namespace BudgetApp
+using BudgetApp.Models;
+
+namespace BudgetApp.Services
 {
     public class FundsService
     {
