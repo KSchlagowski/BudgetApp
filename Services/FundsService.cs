@@ -24,13 +24,13 @@ namespace BudgetApp.Services
             return operation;
         }
 
-        public void AllFundsView (Fund irregularExpensesFund, Fund emergencyFund, Fund securityFund, Fund specialPurposeFund)
+        public void AllFundsView (Funds funds)
         {
             System.Console.WriteLine();
-            System.Console.WriteLine($"Stan funduszu wydatków nieregularnych (FWN): {irregularExpensesFund.Balance}");
-            System.Console.WriteLine($"Stan funduszu awaryjnego (FA): {emergencyFund.Balance}");
-            System.Console.WriteLine($"Stan funduszu bezpieczeństwa (FB): {securityFund.Balance}");
-            System.Console.WriteLine($"Stan funduszu celowego: {specialPurposeFund.Balance}");
+            System.Console.WriteLine($"Stan funduszu wydatków nieregularnych (FWN): {funds.IrregularExpensesFund.Balance}");
+            System.Console.WriteLine($"Stan funduszu awaryjnego (FA): {funds.EmergencyFund.Balance}");
+            System.Console.WriteLine($"Stan funduszu bezpieczeństwa (FB): {funds.SecurityFund.Balance}");
+            System.Console.WriteLine($"Stan funduszu celowego: {funds.SpecialPurposeFund.Balance}");
             System.Console.WriteLine();
         }
 

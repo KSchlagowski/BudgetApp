@@ -12,10 +12,6 @@ namespace BudgetApp
             MenuService menuService = new MenuService();
 
             menuService.CreateMenuView(MenuOption.MainMenu);
-
-            List<object> lista = new List<object>();
-            lista.Add(1);
-            lista.Add("las");
         }
     }
 }

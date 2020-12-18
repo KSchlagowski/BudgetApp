@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using System.Linq;
 using BudgetApp.Models;
 
 namespace BudgetApp.Services
@@ -20,16 +20,7 @@ namespace BudgetApp.Services
 
         public List<MenuAction> GetMenuActionsByMenuName(string menuName)
         {
-            List<MenuAction> result = new List<MenuAction>();
-            foreach (var menuAction in menuActions)
-            {
-                if (menuAction.MenuName == menuName)
-                {
-                    result.Add(menuAction);
-                }
-            }
-
-            return result;
+            return menuActions.Where(a => a.MenuName == menuName).ToList();
         }
     }
 }

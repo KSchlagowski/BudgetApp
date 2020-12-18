@@ -6,12 +6,14 @@ namespace BudgetApp.Services
     
     public class MenuService
     {
-        OperationService operationService = new OperationService();
+        OperationService operationService;
         private Funds funds { get; set; }
-        private MenuActionService actionService = new MenuActionService();
+        private MenuActionService actionService;
         public MenuService()
         {
             funds = new Funds();
+            operationService = new OperationService();
+            actionService = new MenuActionService();
             Initialize();
         }
         public void CreateMenuView(MenuOption menuOption)
@@ -29,6 +31,8 @@ namespace BudgetApp.Services
                     break;
                 case MenuOption.ExpenseMenu:
                     ExpenseMenu(actionService);
+                    break;
+                default:
                     break;
             }
         }
@@ -95,7 +99,7 @@ namespace BudgetApp.Services
                 }
             }
         }
-        private static void HomeBudgetMenu(MenuActionService actionService)
+        private void HomeBudgetMenu(MenuActionService actionService)
         {
             HomeBudgetService homeBudgetService = new HomeBudgetService();
 
@@ -111,10 +115,7 @@ namespace BudgetApp.Services
                         break;
                     case 2:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz zobaczyć.");
-                        System.Console.WriteLine();
-                        int idToView;
-                        string readedIdToView = Console.ReadLine();
-                        Int32.TryParse(readedIdToView, out idToView);
+                        int idToView = operationService.ReadNumberOperation();
                         homeBudgetService.HomeBudgetByIdView(idToView);
                         System.Console.WriteLine();
                         break;
@@ -124,9 +125,7 @@ namespace BudgetApp.Services
                     case 4:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz usunąć.");
                         System.Console.WriteLine();
-                        int idToRemove;
-                        string readedIdToRemove = Console.ReadLine();
-                        Int32.TryParse(readedIdToRemove, out idToRemove);
+                        int idToRemove = operationService.ReadNumberOperation();
                         var removedId = homeBudgetService.RemoveHomeBudgetById(idToRemove);
                         break;
                     case 5:
@@ -159,29 +158,23 @@ namespace BudgetApp.Services
                     case 2:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
-                        decimal emergencyIncome;
-                        string readedEmergencyIncome = Console.ReadLine();
-                        Decimal.TryParse(readedEmergencyIncome, out emergencyIncome);
+                        decimal emergencyIncome = operationService.ReadValueOperation();
                         funds.EmergencyFund = fundsService.EditEmergencyFund(funds.EmergencyFund, emergencyIncome);
                         break;
                     case 3:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
-                        decimal securityIncome;
-                        string readedSecurityIncome = Console.ReadLine();
-                        Decimal.TryParse(readedSecurityIncome, out securityIncome);
+                        decimal securityIncome = operationService.ReadValueOperation();
                         funds.SecurityFund = fundsService.EditSecurityFund(funds.SecurityFund, securityIncome);
                         break;
                     case 4:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
-                        decimal specialPurposeIncome;
-                        string readedSpecialPurposeIncome = Console.ReadLine();
-                        Decimal.TryParse(readedSpecialPurposeIncome, out specialPurposeIncome);
+                        decimal specialPurposeIncome = operationService.ReadValueOperation();
                         funds.SpecialPurposeFund = fundsService.EditSpecialPurposeFund(funds.SpecialPurposeFund, specialPurposeIncome);
                         break;
                     case 5:
-                        fundsService.AllFundsView(funds.IrregularExpensesFund, funds.EmergencyFund, funds.SecurityFund, funds.SpecialPurposeFund);
+                        fundsService.AllFundsView(funds);
                         break;
                     case 6:
                         fundsService.FundsInstruction();
