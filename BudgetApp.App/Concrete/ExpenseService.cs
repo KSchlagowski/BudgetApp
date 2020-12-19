@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using BudgetApp.Models;
+using BudgetApp.Services;
 
-namespace BudgetApp.Services
+namespace BudgetApp.App.Concrete
 {
     public class ExpenseService
     {
