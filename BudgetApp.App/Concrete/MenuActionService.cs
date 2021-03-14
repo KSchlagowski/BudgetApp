@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BudgetApp.Models;
 
-namespace BudgetApp.Services
+namespace BudgetApp.App.Concrete
 {
     public class MenuActionService
     {

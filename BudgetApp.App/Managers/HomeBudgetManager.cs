@@ -1,18 +1,49 @@
 using System;
 using System.Collections.Generic;
-
+using BudgetApp.App.Concrete;
 using BudgetApp.Models;
 
-namespace BudgetApp.Services
+namespace BudgetApp.App.Managers
 {
-    public class HomeBudgetService
+    public class HomeBudgetManager
     {
-        public List<HomeBudget> homeBudgets { get; set; }
-        public HomeBudgetService()
+        HomeBudgetService homeBudgetService;
+
+        public HomeBudgetManager()
         {
-            homeBudgets = new List<HomeBudget>();
+            homeBudgetService = new HomeBudgetService();
         }
 
+        private int AddNewHomeBudget(int monthNumber, string month, decimal earnings, decimal fixedExpenses, decimal variableExpenses, decimal irregularExpenses, decimal balance, decimal finalBalance)
+        {
+            HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
+            homeBudgetService.AddNewHomeBudget(homeBudget);
+
+            return monthNumber;
+        }
+
+        public int RemoveHomeBudgetByIdView (int id)
+        {
+            bool isOperationDone = homeBudgetService.RemoveHomeBudgetById(id);
+            
+            if (isOperationDone)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Budżet usunięto pomyślnie.");
+                System.Console.WriteLine();
+
+                return id;
+            }
+            else
+            {        
+                System.Console.WriteLine();
+                System.Console.WriteLine("Nie można znaleźć budżetu na podany miesiąc.");
+                System.Console.WriteLine();
+
+                return -1;
+            }
+        }
+        
         public int HomeBudgetMenuView(MenuActionService actionService)
         {
             var homeBudgetMenu = actionService.GetMenuActionsByMenuName("HomeBudgetMenu");
@@ -29,6 +60,46 @@ namespace BudgetApp.Services
             System.Console.WriteLine();
 
             return operation;
+        }
+
+        public void AllHomeBudgetsView ()
+        {
+            foreach (var homeBudget in homeBudgetService.homeBudgets)
+            {
+                HomeBudgetByIdView(homeBudget.Id);
+            }
+        }
+        public void HomeBudgetByIdView (int id)
+        {
+            List<HomeBudget> toShow = new List<HomeBudget>();
+
+            bool isBudgetFound = false;
+            foreach (var homeBudget in homeBudgetService.homeBudgets)
+            {
+                if (homeBudget.Id == id)
+                {
+                    toShow.Add(homeBudget);
+                    isBudgetFound = true;
+                }
+            }
+
+            foreach (var homeBudget in toShow)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Miesiąc: " + homeBudget.Month);
+                System.Console.WriteLine("Zarobki: " + homeBudget.Earnings);
+                System.Console.WriteLine("Wydatki stałe: " + homeBudget.FixedExpenses);
+                System.Console.WriteLine("Wydatki jednorazowe: " + homeBudget.VariableExpenses);
+                System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.IrregularExpenses);
+                System.Console.WriteLine("Saldo: " + homeBudget.Balance);
+                System.Console.WriteLine("Saldo finalne: " + homeBudget.FinalBalance);
+            }
+
+            if (!isBudgetFound)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Budżet o podanym miesiącu nie został znaleziony.");
+            }
         }
 
         public int AddNewHomeBudgetView()
@@ -90,75 +161,6 @@ namespace BudgetApp.Services
             System.Console.WriteLine();
 
             return AddNewHomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
-        }
-
-        public int AddNewHomeBudget(int monthNumber, string month, decimal earnings, decimal fixedExpenses, decimal variableExpenses, decimal irregularExpenses, decimal balance, decimal finalBalance)
-        {
-            HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
-            homeBudgets.Add(homeBudget);
-
-            return monthNumber;
-        }
-        
-        public int RemoveHomeBudgetById (int id)
-        {
-            foreach (var homeBudget in homeBudgets)
-            {
-                if (homeBudget.Id == id)
-                {
-                    homeBudgets.Remove(homeBudget);
-                    System.Console.WriteLine();
-                    System.Console.WriteLine("Budżet usunięto pomyślnie.");
-                    System.Console.WriteLine();
-                    return id;
-                }
-            }
-            
-            System.Console.WriteLine();
-            System.Console.WriteLine("Nie można znaleźć budżetu na podany miesiąc.");
-            System.Console.WriteLine();
-            return -1;
-        }
-
-        public void HomeBudgetByIdView (int id)
-        {
-            List<HomeBudget> toShow = new List<HomeBudget>();
-
-            bool isBudgetFound = false;
-            foreach (var homeBudget in homeBudgets)
-            {
-                if (homeBudget.Id == id)
-                {
-                    toShow.Add(homeBudget);
-                    isBudgetFound = true;
-                }
-            }
-
-            foreach (var homeBudget in toShow)
-            {
-                System.Console.WriteLine();
-                System.Console.WriteLine("Miesiąc: " + homeBudget.Month);
-                System.Console.WriteLine("Zarobki: " + homeBudget.Earnings);
-                System.Console.WriteLine("Wydatki stałe: " + homeBudget.FixedExpenses);
-                System.Console.WriteLine("Wydatki jednorazowe: " + homeBudget.VariableExpenses);
-                System.Console.WriteLine("Wydatki nieregularne: " + homeBudget.IrregularExpenses);
-                System.Console.WriteLine("Saldo: " + homeBudget.Balance);
-                System.Console.WriteLine("Saldo finalne: " + homeBudget.FinalBalance);
-            }
-
-            if (!isBudgetFound)
-            {
-                System.Console.WriteLine();
-                System.Console.WriteLine("Budżet o podanym miesiącu nie został znaleziony.");
-            }
-        }
-
-        public void AllHomeBudgetsView ()
-        {
-            foreach (var homeBudget in homeBudgets)
-            {
-                HomeBudgetByIdView(homeBudget.Id);
-            }
         }
 
         public void HomeBudgetInstruction()
