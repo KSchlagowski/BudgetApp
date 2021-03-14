@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using BudgetApp.Models;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Concrete
 {

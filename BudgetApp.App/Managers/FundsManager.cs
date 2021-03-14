@@ -1,6 +1,6 @@
 using System;
 using BudgetApp.App.Concrete;
-using BudgetApp.Models;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Managers
 {

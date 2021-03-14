@@ -1,5 +1,5 @@
 ﻿using BudgetApp.Managers;
-using BudgetApp.Models;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp
 {

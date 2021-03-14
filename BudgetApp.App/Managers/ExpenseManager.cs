@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using BudgetApp.App.Concrete;
-using BudgetApp.Models;
 
 namespace BudgetApp.App.Managers
 {
