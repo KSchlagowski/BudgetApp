@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using BudgetApp.Models;
-using BudgetApp.Services;
+﻿using BudgetApp.Managers;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp
 {
@@ -9,9 +7,9 @@ namespace BudgetApp
     {
         public static void Main(string[] args)
         {
-            MenuService menuService = new MenuService();
+            MenuManager menuManager = new MenuManager();
 
-            menuService.CreateMenuView(MenuOption.MainMenu);
+            menuManager.CreateMenuView(MenuOption.MainMenu);
         }
     }
 }

@@ -1,16 +1,16 @@
 using System;
 using BudgetApp.App.Concrete;
-using BudgetApp.Models;
+using BudgetApp.App.Managers;
+using BudgetApp.Domain.Models;
 
-namespace BudgetApp.Services
+namespace BudgetApp.Managers
 {
-    
-    public class MenuService
+    public class MenuManager
     {
         OperationService operationService;
         private Funds funds { get; set; }
         private MenuActionService actionService;
-        public MenuService()
+        public MenuManager()
         {
             funds = new Funds();
             operationService = new OperationService();
@@ -102,35 +102,35 @@ namespace BudgetApp.Services
         }
         private void HomeBudgetMenu(MenuActionService actionService)
         {
-            HomeBudgetService homeBudgetService = new HomeBudgetService();
+            HomeBudgetManager homeBudgetManager = new HomeBudgetManager();
 
             bool isHomeBudgetMenuActive = true;
             while (isHomeBudgetMenuActive)
             {
-                int operation = homeBudgetService.HomeBudgetMenuView(actionService);
+                int operation = homeBudgetManager.HomeBudgetMenuView(actionService);
 
                 switch (operation)
                 {
                     case 1:
-                        var createdId = homeBudgetService.AddNewHomeBudgetView();
+                        var createdId = homeBudgetManager.AddNewHomeBudgetView();
                         break;
                     case 2:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz zobaczyć.");
                         int idToView = operationService.ReadNumberOperation();
-                        homeBudgetService.HomeBudgetByIdView(idToView);
+                        homeBudgetManager.HomeBudgetByIdView(idToView);
                         System.Console.WriteLine();
                         break;
                     case 3:
-                        homeBudgetService.AllHomeBudgetsView();
+                        homeBudgetManager.AllHomeBudgetsView();
                         break;
                     case 4:
                         System.Console.WriteLine("Wpisz numer miesiąca, na który stworzyłeś budżet, który chcesz usunąć.");
                         System.Console.WriteLine();
                         int idToRemove = operationService.ReadNumberOperation();
-                        var removedId = homeBudgetService.RemoveHomeBudgetById(idToRemove);
+                        var removedId = homeBudgetManager.RemoveHomeBudgetByIdView(idToRemove);
                         break;
                     case 5:
-                        homeBudgetService.HomeBudgetInstruction();
+                        homeBudgetManager.HomeBudgetInstruction();
                         break;
                     default: 
                         isHomeBudgetMenuActive = false;
@@ -141,12 +141,12 @@ namespace BudgetApp.Services
 
         private void FundsMenu(MenuActionService actionService)
         {
-            FundsService fundsService = new FundsService();
+            FundsManager fundsManager = new FundsManager();
 
             bool isFundsMenuActive = true;
             while (isFundsMenuActive)
             {
-                int operation = fundsService.FundsMenuView(actionService);
+                int operation = fundsManager.FundsMenuView(actionService);
                 
                 switch (operation)
                 {
@@ -154,31 +154,31 @@ namespace BudgetApp.Services
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
                         decimal irregularIncome = operationService.ReadValueOperation();
-                        funds.IrregularExpensesFund = fundsService.EditIrregularExpensesFund(funds.IrregularExpensesFund, irregularIncome);
+                        funds.IrregularExpensesFund = fundsManager.EditIrregularExpensesFundView(funds.IrregularExpensesFund, irregularIncome);
                         break;
                     case 2:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
                         decimal emergencyIncome = operationService.ReadValueOperation();
-                        funds.EmergencyFund = fundsService.EditEmergencyFund(funds.EmergencyFund, emergencyIncome);
+                        funds.EmergencyFund = fundsManager.EditEmergencyFundView(funds.EmergencyFund, emergencyIncome);
                         break;
                     case 3:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
                         decimal securityIncome = operationService.ReadValueOperation();
-                        funds.SecurityFund = fundsService.EditSecurityFund(funds.SecurityFund, securityIncome);
+                        funds.SecurityFund = fundsManager.EditSecurityFundView(funds.SecurityFund, securityIncome);
                         break;
                     case 4:
                         System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
                         System.Console.WriteLine();
                         decimal specialPurposeIncome = operationService.ReadValueOperation();
-                        funds.SpecialPurposeFund = fundsService.EditSpecialPurposeFund(funds.SpecialPurposeFund, specialPurposeIncome);
+                        funds.SpecialPurposeFund = fundsManager.EditSpecialPurposeFundView(funds.SpecialPurposeFund, specialPurposeIncome);
                         break;
                     case 5:
-                        fundsService.AllFundsView(funds);
+                        fundsManager.AllFundsView(funds);
                         break;
                     case 6:
-                        fundsService.FundsInstruction();
+                        fundsManager.FundsInstruction();
                         break;
                     default:
                         isFundsMenuActive = false;
@@ -189,17 +189,17 @@ namespace BudgetApp.Services
 
         private void ExpenseMenu(MenuActionService actionService)
         {
-            ExpenseService expenseService = new ExpenseService();
+            ExpenseManager expenseManager = new ExpenseManager();
 
             bool isExpenseMenuActive = true;
             while (isExpenseMenuActive)
             {
-                int operation = expenseService.ExpenseMenuView(actionService);
+                int operation = expenseManager.ExpenseMenuView(actionService);
                 
                 switch (operation)
                 {
                     case 1:
-                        var createdId = expenseService.AddNewExpenseView();
+                        var createdId = expenseManager.AddNewExpenseView();
                         break;
                     case 2:
                         System.Console.WriteLine();
@@ -208,10 +208,10 @@ namespace BudgetApp.Services
                         int idToView;
                         string readedIdToView = Console.ReadLine();
                         Int32.TryParse(readedIdToView, out idToView);
-                        var viewedId = expenseService.ExpenseByIdView(idToView);
+                        var viewedId = expenseManager.ExpenseByIdView(idToView);
                         break;
                     case 3:
-                        expenseService.AllExpensesView();
+                        expenseManager.AllExpensesView();
                         break;
                     case 4:
                         System.Console.WriteLine();
@@ -220,7 +220,7 @@ namespace BudgetApp.Services
                         int idToRemove;
                         string readedIdToRemove = Console.ReadLine();
                         Int32.TryParse(readedIdToRemove, out idToRemove);
-                        var removedId = expenseService.RemoveExpenseById(idToRemove);
+                        var removedId = expenseManager.RemoveExpenseByIdView(idToRemove);
                         break;
                     default:
                         isExpenseMenuActive = false;

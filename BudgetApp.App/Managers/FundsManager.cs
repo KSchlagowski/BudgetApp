@@ -1,11 +1,18 @@
 using System;
+using BudgetApp.App.Concrete;
+using BudgetApp.Domain.Models;
 
-using BudgetApp.Models;
-
-namespace BudgetApp.Services
+namespace BudgetApp.App.Managers
 {
-    public class FundsService
+    public class FundsManager
     {
+        FundsService fundsService;
+
+        public FundsManager()
+        {
+            fundsService = new FundsService();
+        }
+
         public int FundsMenuView(MenuActionService actionService)
         {
             var fundsMenu = actionService.GetMenuActionsByMenuName("FundsMenu");
@@ -34,25 +41,22 @@ namespace BudgetApp.Services
             System.Console.WriteLine();
         }
 
-        public Fund EditIrregularExpensesFund (Fund irregularExpensesFund, decimal income)
+        public Fund EditIrregularExpensesFundView (Fund irregularExpensesFund, decimal income)
         {
-            irregularExpensesFund.Balance += income;
-            return irregularExpensesFund;
+            return fundsService.EditIrregularExpensesFund(irregularExpensesFund, income);
         }
 
-        public Fund EditEmergencyFund (Fund emergencyFund, decimal income)
+        public Fund EditEmergencyFundView (Fund emergencyFund, decimal income)
         {
-            emergencyFund.Balance += income;
-            return emergencyFund;
+            return fundsService.EditEmergencyFund(emergencyFund, income);
         }
 
-        public Fund EditSecurityFund (Fund securityFund, decimal income)
+        public Fund EditSecurityFundView (Fund securityFund, decimal income)
         {
-            securityFund.Balance += income;
-            return securityFund;
+            return fundsService.EditSecurityFund(securityFund, income);
         }
 
-        public SpecialPurposeFund EditSpecialPurposeFund (SpecialPurposeFund specialPurposeFund, decimal income)
+        public SpecialPurposeFund EditSpecialPurposeFundView (SpecialPurposeFund specialPurposeFund, decimal income)
         {
             specialPurposeFund.Balance += income;
 
@@ -64,6 +68,7 @@ namespace BudgetApp.Services
             System.Console.WriteLine();
             if (operation == "Y" || operation == "y" || operation == "1")
             {
+                System.Console.WriteLine();
                 System.Console.WriteLine("Wpisz opis swojego funduszu celowego:");
                 System.Console.WriteLine();
                 string description = Console.ReadLine();

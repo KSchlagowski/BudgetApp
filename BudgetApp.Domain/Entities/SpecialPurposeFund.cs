@@ -1,6 +1,4 @@
-
-
-namespace BudgetApp.Models
+namespace BudgetApp.Domain.Models
 {
     public class SpecialPurposeFund : Fund
     {
