@@ -1,15 +1,25 @@
 using System;
+using System.Collections.Generic;
+using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Managers
 {
     public class ExpenseManager
     {
-        ExpenseService expenseService;
+        IExpenseService expenseService;
+        List<Expense> expenses;
 
         public ExpenseManager()
         {
             expenseService = new ExpenseService();
+        }
+
+        public ExpenseManager(MenuActionService actionService, IExpenseService _expenseService)
+        {
+            expenseService = _expenseService;
+            expenses = expenseService.getAllExpenses();
         }
         
         public int ExpenseMenuView(MenuActionService actionService)
@@ -49,9 +59,9 @@ namespace BudgetApp.App.Managers
             return expenseService.AddNewExpense(expenseValue, expenseDescription);
         }
         
-        public int ExpenseByIdView (int id)
+        public Expense GetExpenseByIdView (int id)
         {
-            foreach (var expense in expenseService.expenses)
+            foreach (var expense in expenses)
             {
                 if (expense.Id == id && id != 0)
                 {
@@ -60,23 +70,23 @@ namespace BudgetApp.App.Managers
                     System.Console.WriteLine("Wartość: " + expense.Value);
                     System.Console.WriteLine("Opis: " + expense.ExpenseDescription);
                     System.Console.WriteLine();
-                    return id;
+                    return expense;
                 }
             }
 
             System.Console.WriteLine();
             System.Console.WriteLine("Nie można wydatku o podanym id.");
             System.Console.WriteLine();
-            return -1;
+            return null;
         }
 
         public void AllExpensesView()
         {
-            foreach (var expense in expenseService.expenses)
+            foreach (var expense in expenses)
             {
                 if (expense.Id != 0)
                 {
-                    ExpenseByIdView(expense.Id);
+                    GetExpenseByIdView(expense.Id);
                 }
             }
         }

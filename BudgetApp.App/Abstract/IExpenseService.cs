@@ -1,16 +1,14 @@
 using System.Collections.Generic;
+using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Abstract
 {
-    public interface IExpenseService<T>
+    public interface IExpenseService
     {
-        List<T> Expenses { get; set; }
-
-        List<T> GetAllExpenses();
-        int GetLastId();
-        T GetExpenseById(int id);
-        int AddExpense(T expense);
-        int UpdateExpense(T expense);
-        void RemoveExpense(T expense);
+        List<Expense> getAllExpenses();
+        int AddNewExpense(decimal value, string description);
+        int AddNewExpense(Expense expense);
+        int RemoveExpenseById (int id);
+        Expense GetExpenseById (int id);
     }
 }

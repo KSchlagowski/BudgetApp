@@ -208,7 +208,7 @@ namespace BudgetApp.Managers
                         int idToView;
                         string readedIdToView = Console.ReadLine();
                         Int32.TryParse(readedIdToView, out idToView);
-                        var viewedId = expenseManager.ExpenseByIdView(idToView);
+                        var viewedId = expenseManager.GetExpenseByIdView(idToView);
                         break;
                     case 3:
                         expenseManager.AllExpensesView();

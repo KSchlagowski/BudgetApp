@@ -1,16 +1,24 @@
 using System;
 using System.Collections.Generic;
+using BudgetApp.App.Abstract;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Concrete
 {
-    public class ExpenseService
+    public class ExpenseService : IExpenseService
     {
         public List<Expense> expenses { get; set; }
+
         public ExpenseService()
         {
             expenses = new List<Expense>();
             expenses.Add(new Expense(0,0,""));
+        }
+
+        public List<Expense> getAllExpenses()
+        {
+            expenses.Add(new Expense(0,0,""));
+            return expenses;
         }
 
         public int AddNewExpense(decimal value, string description)
@@ -38,6 +46,18 @@ namespace BudgetApp.App.Concrete
             }
 
             return -1;
+        }
+        public Expense GetExpenseById (int id)
+        {
+            foreach (var expense in expenses)
+            {
+                if (expense.Id == id && id != 0)
+                {
+                    return expense;
+                }
+            }
+
+            return null;
         }
     }
 }
