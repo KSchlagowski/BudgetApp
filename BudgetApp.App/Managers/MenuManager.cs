@@ -1,4 +1,5 @@
 using System;
+using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
 using BudgetApp.App.Managers;
 using BudgetApp.Domain.Models;
@@ -189,17 +190,17 @@ namespace BudgetApp.Managers
 
         private void ExpenseMenu(MenuActionService actionService)
         {
-            ExpenseManager expenseManager = new ExpenseManager();
+            ExpenseManager expenseManager = new ExpenseManager(actionService);
 
             bool isExpenseMenuActive = true;
             while (isExpenseMenuActive)
             {
-                int operation = expenseManager.ExpenseMenuView(actionService);
+                int operation = expenseManager.ShowExpenseMenu(actionService);
                 
                 switch (operation)
                 {
                     case 1:
-                        var createdId = expenseManager.AddNewExpenseView();
+                        var createdId = expenseManager.ShowAddNewExpense();
                         break;
                     case 2:
                         System.Console.WriteLine();
@@ -208,10 +209,10 @@ namespace BudgetApp.Managers
                         int idToView;
                         string readedIdToView = Console.ReadLine();
                         Int32.TryParse(readedIdToView, out idToView);
-                        var viewedId = expenseManager.GetExpenseByIdView(idToView);
+                        expenseManager.ShowGetExpenseById(idToView);
                         break;
                     case 3:
-                        expenseManager.AllExpensesView();
+                        expenseManager.ShowAllExpenses();
                         break;
                     case 4:
                         System.Console.WriteLine();
@@ -220,7 +221,7 @@ namespace BudgetApp.Managers
                         int idToRemove;
                         string readedIdToRemove = Console.ReadLine();
                         Int32.TryParse(readedIdToRemove, out idToRemove);
-                        var removedId = expenseManager.RemoveExpenseByIdView(idToRemove);
+                        var removedId = expenseManager.ShowRemoveExpenseById(idToRemove);
                         break;
                     default:
                         isExpenseMenuActive = false;

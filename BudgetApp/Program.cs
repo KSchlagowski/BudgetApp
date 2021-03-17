@@ -1,5 +1,6 @@
 ﻿using BudgetApp.Managers;
 using BudgetApp.Domain.Models;
+using BudgetApp.App.Managers;
 
 namespace BudgetApp
 {
@@ -7,7 +8,7 @@ namespace BudgetApp
     {
         public static void Main(string[] args)
         {
-            MenuManager menuManager = new MenuManager();
+            MenuManager menuManager = new MenuManager();        
 
             menuManager.CreateMenuView(MenuOption.MainMenu);
         }

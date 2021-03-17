@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace BudgetApp.App.Abstract
 {
-    public interface IExpenseService<T>
+    public interface IBaseExpenseService<T>
     {
         List<T> Expenses { get; set; }
 

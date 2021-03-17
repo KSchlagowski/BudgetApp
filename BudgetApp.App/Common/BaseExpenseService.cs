@@ -5,7 +5,7 @@ using BudgetApp.Domain.Common;
 
 namespace BudgetApp.App.Common
 {
-    public class BaseExpenseService<T> : IExpenseService<T> where T : BaseEntity
+    public class BaseExpenseService<T> : IBaseExpenseService<T> where T : BaseEntity
     {
         public List<T> Expenses { get; set; }
 

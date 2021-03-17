@@ -5,7 +5,7 @@ namespace BudgetApp.App.Abstract
 {
     public interface IExpenseService
     {
-        List<Expense> getAllExpenses();
+        List<Expense> expenses { get; set; }
         int AddNewExpense(decimal value, string description);
         int AddNewExpense(Expense expense);
         int RemoveExpenseById (int id);

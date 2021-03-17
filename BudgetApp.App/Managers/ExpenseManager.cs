@@ -8,21 +8,14 @@ namespace BudgetApp.App.Managers
 {
     public class ExpenseManager
     {
-        IExpenseService expenseService;
-        List<Expense> expenses;
+        private IExpenseService _expenseService;
 
-        public ExpenseManager()
+        public ExpenseManager(MenuActionService actionService)
         {
-            expenseService = new ExpenseService();
-        }
-
-        public ExpenseManager(MenuActionService actionService, IExpenseService _expenseService)
-        {
-            expenseService = _expenseService;
-            expenses = expenseService.getAllExpenses();
+            _expenseService = new ExpenseService();
         }
         
-        public int ExpenseMenuView(MenuActionService actionService)
+        public int ShowExpenseMenu(MenuActionService actionService)
         {
             var expenseMenu = actionService.GetMenuActionsByMenuName("ExpenseMenu");
             Console.WriteLine("Wydatki.");
@@ -41,7 +34,7 @@ namespace BudgetApp.App.Managers
             return operation;
         }
 
-        public int AddNewExpenseView()
+        public int ShowAddNewExpense()
         {
             System.Console.WriteLine();
             System.Console.WriteLine("Podaj wartość wydatku:");
@@ -56,44 +49,43 @@ namespace BudgetApp.App.Managers
             string expenseDescription = Console.ReadLine();
             System.Console.WriteLine();
 
-            return expenseService.AddNewExpense(expenseValue, expenseDescription);
+            return _expenseService.AddNewExpense(expenseValue, expenseDescription);
         }
         
-        public Expense GetExpenseByIdView (int id)
+        public void ShowGetExpenseById (int id)
         {
-            foreach (var expense in expenses)
-            {
-                if (expense.Id == id && id != 0)
-                {
-                    System.Console.WriteLine();
-                    System.Console.WriteLine("Id: " + expense.Id);
-                    System.Console.WriteLine("Wartość: " + expense.Value);
-                    System.Console.WriteLine("Opis: " + expense.ExpenseDescription);
-                    System.Console.WriteLine();
-                    return expense;
-                }
-            }
+            Expense expense = _expenseService.GetExpenseById(id);
 
-            System.Console.WriteLine();
-            System.Console.WriteLine("Nie można wydatku o podanym id.");
-            System.Console.WriteLine();
-            return null;
+            if (expense != null)
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Id: " + expense.Id);
+                System.Console.WriteLine("Wartość: " + expense.Value);
+                System.Console.WriteLine("Opis: " + expense.ExpenseDescription);
+                System.Console.WriteLine();
+            }
+            else
+            {
+                System.Console.WriteLine();
+                System.Console.WriteLine("Nie ma wydatku o podanym id.");
+                System.Console.WriteLine();
+            }
         }
 
-        public void AllExpensesView()
+        public void ShowAllExpenses()
         {
-            foreach (var expense in expenses)
+            foreach (var expense in _expenseService.expenses)
             {
                 if (expense.Id != 0)
                 {
-                    GetExpenseByIdView(expense.Id);
+                    ShowGetExpenseById(expense.Id);
                 }
             }
         }
 
-        public int RemoveExpenseByIdView (int id)
+        public int ShowRemoveExpenseById (int id)
         {
-            if (expenseService.RemoveExpenseById(id) == id)
+            if (_expenseService.RemoveExpenseById(id) == id)
             {
                 return id;
             }

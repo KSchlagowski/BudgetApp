@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BudgetApp.App.Abstract;
 using BudgetApp.Domain.Models;
+using System.Linq;
 
 namespace BudgetApp.App.Concrete
 {
@@ -15,12 +16,6 @@ namespace BudgetApp.App.Concrete
             expenses.Add(new Expense(0,0,""));
         }
 
-        public List<Expense> getAllExpenses()
-        {
-            expenses.Add(new Expense(0,0,""));
-            return expenses;
-        }
-
         public int AddNewExpense(decimal value, string description)
         {
             int expenseId = expenses[expenses.Count-1].Id + 1;
@@ -28,6 +23,7 @@ namespace BudgetApp.App.Concrete
             expenses.Add(expense);
             return expenseId;
         }
+
         public int AddNewExpense(Expense expense)
         {
             expenses.Add(expense);
@@ -47,6 +43,7 @@ namespace BudgetApp.App.Concrete
 
             return -1;
         }
+
         public Expense GetExpenseById (int id)
         {
             foreach (var expense in expenses)
