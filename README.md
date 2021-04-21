@@ -23,4 +23,6 @@ I want to include in the future:
   
 Progress is visible on my profile in BudgetAppBoard - Github Project.
 
+To run this project go to /BudgetApp and execute 'dotnet run' command.
+
 For now only Polish version of console messages is avaible, but English one is coming soon.
