@@ -7,19 +7,19 @@ Ideas how this program should work I have taken from Michał Szafrański's "Fina
 
 
 So far I have learned by coding BudgetApp:
-  C# objectivity including abstraction,
-  Accessibility of methods and variables,
-  Basics of The Repository-Service Pattern
+  + C# objectivity including abstraction,
+  + Accessibility of methods and variables,
+  + Basics of The Repository-Service Pattern
 
 I want to include in the future:
-  Tests,
-  Saving budgets and funds by JSON support,
-  MVC,
-  Dependency Injection,
-  SQL support,
-  Data Annotations,
-  User support (register, login etc.),
-  Tokens
+  + Tests,
+  + Saving budgets and funds by JSON support,
+  + MVC,
+  + Dependency Injection,
+  + SQL support,
+  + Data Annotations,
+  + User support (register, login etc.),
+  + Tokens
   
 Progress is visible on my profile in BudgetAppBoard - Github Project.
 
