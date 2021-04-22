@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
+using BudgetApp.App.Repositories;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Managers
@@ -12,7 +13,7 @@ namespace BudgetApp.App.Managers
 
         public ExpenseManager(MenuActionService actionService)
         {
-            _expenseService = new ExpenseService();
+            _expenseService = new ExpenseService(new ExpenseRepository());
         }
         
         public int ShowExpenseMenu(MenuActionService actionService)
@@ -74,7 +75,7 @@ namespace BudgetApp.App.Managers
 
         public void ShowAllExpenses()
         {
-            foreach (var expense in _expenseService.expenses)
+            foreach (var expense in _expenseService.GetAllExpenses())
             {
                 if (expense.Id != 0)
                 {
