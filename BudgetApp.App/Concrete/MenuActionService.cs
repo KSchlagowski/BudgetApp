@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using BudgetApp.App.Abstract;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Concrete
 {
-    public class MenuActionService
+    public class MenuActionService : IMenuActionService
     {
-        public List<MenuAction> menuActions;
+        public List<MenuAction> menuActions { get; set; }
         public MenuActionService()
         {
             menuActions = new List<MenuAction>();

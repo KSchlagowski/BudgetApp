@@ -9,52 +9,33 @@ namespace BudgetApp.App.Concrete
     public class ExpenseService : IExpenseService
     {
         public List<Expense> expenses { get; set; }
+        private readonly IExpenseRepository _expenseRepository;
 
-        public ExpenseService()
+        public ExpenseService(IExpenseRepository expenseRepository)
         {
-            expenses = new List<Expense>();
-            expenses.Add(new Expense(0,0,""));
+            _expenseRepository = expenseRepository;
         }
+
+        public List<Expense> GetAllExpenses() => _expenseRepository.expenses;
 
         public int AddNewExpense(decimal value, string description)
         {
-            int expenseId = expenses[expenses.Count-1].Id + 1;
-            Expense expense = new Expense(expenseId, value, description);
-            expenses.Add(expense);
-            return expenseId;
+            return _expenseRepository.AddNewExpense(value, description);
         }
 
         public int AddNewExpense(Expense expense)
         {
-            expenses.Add(expense);
-            return expense.Id;
+            return _expenseRepository.AddNewExpense(expense);
         }
 
-        public int RemoveExpenseById (int id)
+        public Expense GetExpenseById(int id)
         {
-            foreach (var expense in expenses)
-            {
-                if (expense.Id == id && id != 0)
-                {
-                    expenses.Remove(expense);
-                    return id;
-                }
-            }
-
-            return -1;
+            return _expenseRepository.GetExpenseById(id);
         }
 
-        public Expense GetExpenseById (int id)
+        public int RemoveExpenseById(int id)
         {
-            foreach (var expense in expenses)
-            {
-                if (expense.Id == id && id != 0)
-                {
-                    return expense;
-                }
-            }
-
-            return null;
+            return _expenseRepository.RemoveExpenseById(id);
         }
     }
 }

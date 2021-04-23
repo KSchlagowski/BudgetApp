@@ -1,6 +1,6 @@
 namespace BudgetApp.Domain.Models
 {
-    public class SpecialPurposeFund : Fund
+    public class SpecialPurposeFund : T
     {
         public string PurposeDescription { get; set; }
     }

@@ -2,6 +2,7 @@ using System;
 using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
 using BudgetApp.App.Managers;
+using BudgetApp.App.Repositories;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.Managers
@@ -103,7 +104,9 @@ namespace BudgetApp.Managers
         }
         private void HomeBudgetMenu(MenuActionService actionService)
         {
-            HomeBudgetManager homeBudgetManager = new HomeBudgetManager();
+            HomeBudgetRepository homeBudgetRepository = new HomeBudgetRepository();
+            HomeBudgetService homeBudgetService = new HomeBudgetService(homeBudgetRepository);
+            HomeBudgetManager homeBudgetManager = new HomeBudgetManager(homeBudgetService);
 
             bool isHomeBudgetMenuActive = true;
             while (isHomeBudgetMenuActive)
@@ -142,12 +145,14 @@ namespace BudgetApp.Managers
 
         private void FundsMenu(MenuActionService actionService)
         {
-            FundsManager fundsManager = new FundsManager();
+            FundsRepository fundsRepository = new FundsRepository();
+            FundsService fundsService = new FundsService(fundsRepository);
+            FundsManager fundsManager = new FundsManager(actionService, fundsService);
 
             bool isFundsMenuActive = true;
             while (isFundsMenuActive)
             {
-                int operation = fundsManager.FundsMenuView(actionService);
+                int operation = fundsManager.FundsMenuView();
                 
                 switch (operation)
                 {
@@ -190,12 +195,14 @@ namespace BudgetApp.Managers
 
         private void ExpenseMenu(MenuActionService actionService)
         {
-            ExpenseManager expenseManager = new ExpenseManager(actionService);
+            ExpenseRepository expenseRepository = new ExpenseRepository();
+            ExpenseService expenseService = new ExpenseService(expenseRepository);
+            ExpenseManager expenseManager = new ExpenseManager(actionService, expenseService);
 
             bool isExpenseMenuActive = true;
             while (isExpenseMenuActive)
             {
-                int operation = expenseManager.ShowExpenseMenu(actionService);
+                int operation = expenseManager.ShowExpenseMenu();
                 
                 switch (operation)
                 {
