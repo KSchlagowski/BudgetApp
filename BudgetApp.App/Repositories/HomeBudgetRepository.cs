@@ -5,8 +5,9 @@ using BudgetApp.Domain.Models;
 namespace BudgetApp.App.Repositories
 {
     public class HomeBudgetRepository : IHomeBudgetRepository
-    {
+    { 
         public List<HomeBudget> homeBudgets { get; set; }
+        
         public HomeBudgetRepository()
         {
             homeBudgets = new List<HomeBudget>();
