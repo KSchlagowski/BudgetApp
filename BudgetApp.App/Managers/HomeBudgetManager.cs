@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
 using BudgetApp.Domain.Models;
 
@@ -7,24 +8,24 @@ namespace BudgetApp.App.Managers
 {
     public class HomeBudgetManager
     {
-        HomeBudgetService homeBudgetService;
+        private readonly IHomeBudgetService _homeBudgetService;
 
-        public HomeBudgetManager()
+        public HomeBudgetManager(IHomeBudgetService homeBudgetService)
         {
-            homeBudgetService = new HomeBudgetService();
+            _homeBudgetService = homeBudgetService;
         }
 
         private int AddNewHomeBudget(int monthNumber, string month, decimal earnings, decimal fixedExpenses, decimal variableExpenses, decimal irregularExpenses, decimal balance, decimal finalBalance)
         {
             HomeBudget homeBudget = new HomeBudget(monthNumber, month, earnings, fixedExpenses, variableExpenses, irregularExpenses, balance, finalBalance);
-            homeBudgetService.AddNewHomeBudget(homeBudget);
+            _homeBudgetService.AddNewHomeBudget(homeBudget);
 
             return monthNumber;
         }
 
         public int RemoveHomeBudgetByIdView (int id)
         {
-            bool isOperationDone = homeBudgetService.RemoveHomeBudgetById(id);
+            bool isOperationDone = _homeBudgetService.RemoveHomeBudgetById(id);
             
             if (isOperationDone)
             {
@@ -64,7 +65,7 @@ namespace BudgetApp.App.Managers
 
         public void AllHomeBudgetsView ()
         {
-            foreach (var homeBudget in homeBudgetService.homeBudgets)
+            foreach (var homeBudget in _homeBudgetService.GetAllHomeBudgets())
             {
                 HomeBudgetByIdView(homeBudget.Id);
             }
@@ -74,7 +75,7 @@ namespace BudgetApp.App.Managers
             List<HomeBudget> toShow = new List<HomeBudget>();
 
             bool isBudgetFound = false;
-            foreach (var homeBudget in homeBudgetService.homeBudgets)
+            foreach (var homeBudget in _homeBudgetService.GetAllHomeBudgets())
             {
                 if (homeBudget.Id == id)
                 {

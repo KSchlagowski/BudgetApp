@@ -1,27 +1,29 @@
 using System;
-
+using BudgetApp.App.Abstract;
+using BudgetApp.App.Repositories;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Concrete
 {
-    public class FundsService
+    public class FundsService : IFundsService<T>
     {
-        public Fund EditIrregularExpensesFund (Fund irregularExpensesFund, decimal income)
+        private readonly IFundsRepository<T> _fundsRepository;
+        public FundsService(IFundsRepository<T> fundsRepository){
+            _fundsRepository = fundsRepository;
+        }
+        public T EditIrregularExpensesFund (T irregularExpensesFund, decimal income)
         {
-            irregularExpensesFund.Balance += income;
-            return irregularExpensesFund;
+            return _fundsRepository.EditIrregularExpensesFund(irregularExpensesFund, income);
         }
 
-        public Fund EditEmergencyFund (Fund emergencyFund, decimal income)
+        public T EditEmergencyFund (T emergencyFund, decimal income)
         {
-            emergencyFund.Balance += income;
-            return emergencyFund;
+            return _fundsRepository.EditEmergencyFund(emergencyFund, income);
         }
 
-        public Fund EditSecurityFund (Fund securityFund, decimal income)
+        public T EditSecurityFund (T securityFund, decimal income)
         {
-            securityFund.Balance += income;
-            return securityFund;
+            return _fundsRepository.EditSecurityFund(securityFund, income);
         }
     }
 }
