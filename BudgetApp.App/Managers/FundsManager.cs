@@ -1,21 +1,25 @@
 using System;
+using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
+using BudgetApp.App.Repositories;
 using BudgetApp.Domain.Models;
 
 namespace BudgetApp.App.Managers
 {
     public class FundsManager
     {
-        FundsService fundsService;
+        private readonly IFundsService<T> _fundsService;
+        private readonly MenuActionService _actionService;
 
-        public FundsManager()
+        public FundsManager(MenuActionService actionService, IFundsService<T> fundsService)
         {
-            fundsService = new FundsService();
+            _actionService = actionService;
+            _fundsService = fundsService;
         }
 
-        public int FundsMenuView(MenuActionService actionService)
+        public int FundsMenuView()
         {
-            var fundsMenu = actionService.GetMenuActionsByMenuName("FundsMenu");
+            var fundsMenu = _actionService.GetMenuActionsByMenuName("FundsMenu");
             Console.WriteLine("Fundusze.");
             for (int i = 0; i < fundsMenu.Count; i++)
             {
@@ -41,19 +45,19 @@ namespace BudgetApp.App.Managers
             System.Console.WriteLine();
         }
 
-        public Fund EditIrregularExpensesFundView (Fund irregularExpensesFund, decimal income)
+        public T EditIrregularExpensesFundView (T irregularExpensesFund, decimal income)
         {
-            return fundsService.EditIrregularExpensesFund(irregularExpensesFund, income);
+            return _fundsService.EditIrregularExpensesFund(irregularExpensesFund, income);
         }
 
-        public Fund EditEmergencyFundView (Fund emergencyFund, decimal income)
+        public T EditEmergencyFundView (T emergencyFund, decimal income)
         {
-            return fundsService.EditEmergencyFund(emergencyFund, income);
+            return _fundsService.EditEmergencyFund(emergencyFund, income);
         }
 
-        public Fund EditSecurityFundView (Fund securityFund, decimal income)
+        public T EditSecurityFundView (T securityFund, decimal income)
         {
-            return fundsService.EditSecurityFund(securityFund, income);
+            return _fundsService.EditSecurityFund(securityFund, income);
         }
 
         public SpecialPurposeFund EditSpecialPurposeFundView (SpecialPurposeFund specialPurposeFund, decimal income)

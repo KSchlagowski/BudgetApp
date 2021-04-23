@@ -9,16 +9,18 @@ namespace BudgetApp.App.Managers
 {
     public class ExpenseManager
     {
-        private IExpenseService _expenseService;
+        private readonly IExpenseService _expenseService;
+        private readonly IMenuActionService _actionService;
 
-        public ExpenseManager(MenuActionService actionService)
+        public ExpenseManager(IMenuActionService actionService, IExpenseService expenseService)
         {
-            _expenseService = new ExpenseService(new ExpenseRepository());
+            _actionService = actionService;
+            _expenseService = expenseService;
         }
         
-        public int ShowExpenseMenu(MenuActionService actionService)
+        public int ShowExpenseMenu()
         {
-            var expenseMenu = actionService.GetMenuActionsByMenuName("ExpenseMenu");
+            var expenseMenu = _actionService.GetMenuActionsByMenuName("ExpenseMenu");
             Console.WriteLine("Wydatki.");
             
             for (int i = 0; i < expenseMenu.Count; i++)
