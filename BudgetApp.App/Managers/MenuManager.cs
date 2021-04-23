@@ -9,7 +9,7 @@ namespace BudgetApp.Managers
 {
     public class MenuManager
     {
-        OperationService operationService;
+        private IOperationService operationService;
         private Funds funds { get; set; }
         private MenuActionService actionService;
         public MenuManager()

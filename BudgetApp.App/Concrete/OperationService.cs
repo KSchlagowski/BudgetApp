@@ -1,8 +1,9 @@
 using System;
+using BudgetApp.App.Abstract;
 
 namespace BudgetApp
 {
-    public class OperationService
+    public class OperationService : IOperationService
     {
         public int ReadNumberOperation()
         {
