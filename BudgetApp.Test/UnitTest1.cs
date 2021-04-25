@@ -1,11 +1,12 @@
 using System;
 using Xunit;
 using BudgetApp.Domain.Models;
-using Mock;
 using Moq;
 using BudgetApp.App.Abstract;
 using BudgetApp.App.Managers;
 using BudgetApp.App.Concrete;
+using FluentAssertions;
+using BudgetApp.App.Repositories;
 
 namespace BudgetApp.Test
 {
@@ -16,18 +17,19 @@ namespace BudgetApp.Test
         {
             //Arange
             Expense expense = new Expense(1, 12, "Nutrition");
-            var mock = new Mock<IExpenseService>();
-            mock.Setup(s => s.GetExpenseById(1)).Returns(expense);
+            //var mock = new Mock<IExpenseRepository>();
+            // mock.Setup(s => s.AddNewExpense(expense)).Returns(1);
 
-            MenuActionService actionService = new MenuActionService();
-            //var manager = new ExpenseManager(actionService, mock.Object);
-
+            // var manager = new ExpenseService(mock.Object);
+            var service = new ExpenseService(new ExpenseRepository());
+            
             // //Act
-            // var returnedExpense = manager.ShowGetExpenseById(expense.Id);
+            var returnedExpense = service.AddNewExpense(expense.Value, expense.Description);
 
             // //Assert    
-            // Assert.Equal(expense, returnedExpense);
-            
+            //Assert.Equal(expense.Id, returnedExpense);
+            returnedExpense.Should().BeOfType(typeof(int));
+            returnedExpense.Should().Be(expense.Id);
         }
     }
 }
