@@ -64,7 +64,7 @@ namespace BudgetApp.App.Managers
                 System.Console.WriteLine();
                 System.Console.WriteLine("Id: " + expense.Id);
                 System.Console.WriteLine("Wartość: " + expense.Value);
-                System.Console.WriteLine("Opis: " + expense.ExpenseDescription);
+                System.Console.WriteLine("Opis: " + expense.Description);
                 System.Console.WriteLine();
             }
             else
