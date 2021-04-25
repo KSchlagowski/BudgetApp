@@ -3,7 +3,7 @@ For now, BudgetApp is console application that helps making home budget and moni
 My target is to expand it to REST API using ASP.NET Core.
 BudgetApp is constantly being developed. Branches are named after parts (weeks) of Kajetan Duszyński's ASP.NET course which I use to learn to make .NET / web apps' fuctionalities.
 
-Ideas how this program should work I have taken from Michał Szafrański's "Finansowy Ninja" - book on this subject.
+I got ideas on how this program should work from Michał Szafrański's "Finansowy Ninja" - book on this subject.
 
 
 So far I have learned by coding BudgetApp:
