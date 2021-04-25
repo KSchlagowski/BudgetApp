@@ -4,12 +4,12 @@ namespace BudgetApp.Domain.Models
     {
         public int Id { get; set; }
         public decimal Value { get; set; }
-        public string ExpenseDescription { get; set; }
-        public Expense (int id, decimal value, string expenseDescription)
+        public string Description { get; set; }
+        public Expense (int id, decimal value, string description)
         {
             Id = id;
             Value = value;
-            ExpenseDescription = expenseDescription;
+            Description = description;
         }
 
         //Maybe categories in future
