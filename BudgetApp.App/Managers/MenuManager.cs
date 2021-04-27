@@ -10,11 +10,9 @@ namespace BudgetApp.Managers
     public class MenuManager
     {
         private IOperationService operationService;
-        private Funds funds { get; set; }
         private MenuActionService actionService;
         public MenuManager()
         {
-            funds = new Funds();
             operationService = new OperationService();
             actionService = new MenuActionService();
             Initialize();
@@ -143,56 +141,6 @@ namespace BudgetApp.Managers
             }
         }
 
-        private void FundsMenu(MenuActionService actionService)
-        {
-            FundsRepository fundsRepository = new FundsRepository();
-            FundsService fundsService = new FundsService(fundsRepository);
-            FundsManager fundsManager = new FundsManager(actionService, fundsService);
-
-            bool isFundsMenuActive = true;
-            while (isFundsMenuActive)
-            {
-                int operation = fundsManager.FundsMenuView();
-                
-                switch (operation)
-                {
-                    case 1:
-                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
-                        System.Console.WriteLine();
-                        decimal irregularIncome = operationService.ReadValueOperation();
-                        funds.IrregularExpensesFund = fundsManager.EditIrregularExpensesFundView(funds.IrregularExpensesFund, irregularIncome);
-                        break;
-                    case 2:
-                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
-                        System.Console.WriteLine();
-                        decimal emergencyIncome = operationService.ReadValueOperation();
-                        funds.EmergencyFund = fundsManager.EditEmergencyFundView(funds.EmergencyFund, emergencyIncome);
-                        break;
-                    case 3:
-                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
-                        System.Console.WriteLine();
-                        decimal securityIncome = operationService.ReadValueOperation();
-                        funds.SecurityFund = fundsManager.EditSecurityFundView(funds.SecurityFund, securityIncome);
-                        break;
-                    case 4:
-                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
-                        System.Console.WriteLine();
-                        decimal specialPurposeIncome = operationService.ReadValueOperation();
-                        funds.SpecialPurposeFund = fundsManager.EditSpecialPurposeFundView(funds.SpecialPurposeFund, specialPurposeIncome);
-                        break;
-                    case 5:
-                        fundsManager.AllFundsView(funds);
-                        break;
-                    case 6:
-                        fundsManager.FundsInstruction();
-                        break;
-                    default:
-                        isFundsMenuActive = false;
-                        break;
-                }
-            }
-        }
-
         private void ExpenseMenu(MenuActionService actionService)
         {
             ExpenseRepository expenseRepository = new ExpenseRepository();
@@ -232,6 +180,56 @@ namespace BudgetApp.Managers
                         break;
                     default:
                         isExpenseMenuActive = false;
+                        break;
+                }
+            }
+        }
+
+        private void FundsMenu(MenuActionService actionService)
+        {
+            IFundsRepository<T> fundsRepository = new FundsRepository();
+            IFundsService<T> fundsService = new FundsService(fundsRepository);
+            FundsManager fundsManager = new FundsManager(actionService, fundsService);
+
+            bool isFundsMenuActive = true;
+            while (isFundsMenuActive)
+            {
+                int operation = fundsManager.FundsMenuView();
+                
+                switch (operation)
+                {
+                    case 1:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
+                        decimal irregularIncome = operationService.ReadValueOperation();
+                        fundsService.EditIrregularExpensesFund(irregularIncome);
+                        break;
+                    case 2:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
+                        decimal emergencyIncome = operationService.ReadValueOperation();
+                        fundsService.EditEmergencyFund(emergencyIncome);
+                        break;
+                    case 3:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
+                        decimal securityIncome = operationService.ReadValueOperation();
+                        fundsService.EditSecurityFund(securityIncome);
+                        break;
+                    case 4:
+                        System.Console.WriteLine("O ile chcesz zmienić stan tego funduszu?");
+                        System.Console.WriteLine();
+                        decimal specialPurposeIncome = operationService.ReadValueOperation();
+                        fundsManager.EditSpecialPurposeFundView(specialPurposeIncome);
+                        break;
+                    case 5:
+                        fundsManager.AllFundsView();
+                        break;
+                    case 6:
+                        fundsManager.FundsInstruction();
+                        break;
+                    default:
+                        isFundsMenuActive = false;
                         break;
                 }
             }

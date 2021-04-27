@@ -8,22 +8,59 @@ namespace BudgetApp.App.Concrete
     public class FundsService : IFundsService<T>
     {
         private readonly IFundsRepository<T> _fundsRepository;
+        
         public FundsService(IFundsRepository<T> fundsRepository){
             _fundsRepository = fundsRepository;
         }
-        public T EditIrregularExpensesFund (T irregularExpensesFund, decimal income)
+
+        public Funds GetAllFunds()
         {
-            return _fundsRepository.EditIrregularExpensesFund(irregularExpensesFund, income);
+            return _fundsRepository.funds;
         }
 
-        public T EditEmergencyFund (T emergencyFund, decimal income)
+        public T EditIrregularExpensesFund (decimal income)
         {
-            return _fundsRepository.EditEmergencyFund(emergencyFund, income);
+            return _fundsRepository.EditIrregularExpensesFund(income);
         }
 
-        public T EditSecurityFund (T securityFund, decimal income)
+        public T EditEmergencyFund (decimal income)
         {
-            return _fundsRepository.EditSecurityFund(securityFund, income);
+            return _fundsRepository.EditEmergencyFund(income);
+        }
+
+        public T EditSecurityFund (decimal income)
+        {
+            return _fundsRepository.EditSecurityFund(income);
+        }
+
+        public SpecialPurposeFund EditSpecialPurposeFund (decimal income, string description)
+        {
+            if (description == null)
+            {
+                return _fundsRepository.EditSpecialPurposeFund(income);
+            }
+
+            return _fundsRepository.EditSpecialPurposeFund(income, description);
+        }
+
+        public T GetIrregularExpensesFund()
+        {
+            return _fundsRepository.GetIrregularExpensesFund();
+        }
+
+        public T GetEmergencyFund()
+        {
+            return _fundsRepository.GetEmergencyFund();
+        }
+
+        public T GetSecurityFund()
+        {
+            return _fundsRepository.GetSecurityFund();
+        }
+
+        public SpecialPurposeFund GetSpecialPurposeFund()
+        {
+            return _fundsRepository.GetSpecialPurposeFund();
         }
     }
 }

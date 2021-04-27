@@ -4,8 +4,16 @@ namespace BudgetApp.App.Abstract
 {
     public interface IFundsService<T>
     {
-        T EditIrregularExpensesFund (T irregularExpensesFund, decimal income);
-        T EditEmergencyFund (T emergencyFund, decimal income);
-        T EditSecurityFund (T securityFund, decimal income);
+        Funds GetAllFunds();
+
+        T GetIrregularExpensesFund ();
+        T GetEmergencyFund ();
+        T GetSecurityFund ();
+        SpecialPurposeFund GetSpecialPurposeFund ();
+
+        T EditIrregularExpensesFund (decimal income);
+        T EditEmergencyFund (decimal income);
+        T EditSecurityFund (decimal income);
+        SpecialPurposeFund EditSpecialPurposeFund (decimal income, string description);
     }
 }

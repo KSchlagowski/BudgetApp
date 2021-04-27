@@ -5,22 +5,62 @@ namespace BudgetApp.App.Repositories
 {
     public class FundsRepository : IFundsRepository<T>
     {
-        public T EditIrregularExpensesFund (T irregularExpensesFund, decimal income)
+        public Funds funds { get; set; }
+
+        public FundsRepository()
         {
-            irregularExpensesFund.Balance += income;
-            return irregularExpensesFund;
+            funds = new Funds();
         }
 
-        public T EditEmergencyFund (T emergencyFund, decimal income)
+        public T EditIrregularExpensesFund (decimal income)
         {
-            emergencyFund.Balance += income;
-            return emergencyFund;
+            funds.IrregularExpensesFund.Balance += income;
+            return funds.IrregularExpensesFund;
         }
 
-        public T EditSecurityFund (T securityFund, decimal income)
+        public T EditEmergencyFund (decimal income)
         {
-            securityFund.Balance += income;
-            return securityFund;
+            funds.EmergencyFund.Balance += income;
+            return funds.EmergencyFund;
+        }
+
+        public T EditSecurityFund (decimal income)
+        {
+            funds.SecurityFund.Balance += income;
+            return funds.SecurityFund;
+        }
+
+        public SpecialPurposeFund EditSpecialPurposeFund (decimal income, string description)
+        {
+            funds.SpecialPurposeFund.Balance += income;
+            funds.SpecialPurposeFund.Description = description;
+            return funds.SpecialPurposeFund;
+        }
+
+        public SpecialPurposeFund EditSpecialPurposeFund (decimal income)
+        {
+            funds.SpecialPurposeFund.Balance += income;
+            return funds.SpecialPurposeFund;
+        }
+
+        public T GetIrregularExpensesFund()
+        {
+            return funds.IrregularExpensesFund;
+        }
+
+        public T GetEmergencyFund()
+        {
+            return funds.EmergencyFund;
+        }
+
+        public T GetSecurityFund()
+        {
+            return funds.SecurityFund;
+        }
+
+        public SpecialPurposeFund GetSpecialPurposeFund()
+        {
+            return funds.SpecialPurposeFund;
         }
     }
 }

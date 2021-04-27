@@ -35,34 +35,22 @@ namespace BudgetApp.App.Managers
             return operation;
         }
 
-        public void AllFundsView (Funds funds)
+        public void AllFundsView ()
         {
+            Funds funds = _fundsService.GetAllFunds();
+
             System.Console.WriteLine();
             System.Console.WriteLine($"Stan funduszu wydatków nieregularnych (FWN): {funds.IrregularExpensesFund.Balance}");
             System.Console.WriteLine($"Stan funduszu awaryjnego (FA): {funds.EmergencyFund.Balance}");
             System.Console.WriteLine($"Stan funduszu bezpieczeństwa (FB): {funds.SecurityFund.Balance}");
+            System.Console.WriteLine($"Cel funduszu celowego: {funds.SpecialPurposeFund.Description}");
             System.Console.WriteLine($"Stan funduszu celowego: {funds.SpecialPurposeFund.Balance}");
             System.Console.WriteLine();
         }
 
-        public T EditIrregularExpensesFundView (T irregularExpensesFund, decimal income)
+        public SpecialPurposeFund EditSpecialPurposeFundView (decimal income)
         {
-            return _fundsService.EditIrregularExpensesFund(irregularExpensesFund, income);
-        }
-
-        public T EditEmergencyFundView (T emergencyFund, decimal income)
-        {
-            return _fundsService.EditEmergencyFund(emergencyFund, income);
-        }
-
-        public T EditSecurityFundView (T securityFund, decimal income)
-        {
-            return _fundsService.EditSecurityFund(securityFund, income);
-        }
-
-        public SpecialPurposeFund EditSpecialPurposeFundView (SpecialPurposeFund specialPurposeFund, decimal income)
-        {
-            specialPurposeFund.Balance += income;
+            string description = null;
 
             System.Console.WriteLine();
             System.Console.WriteLine("Czy chcesz zmienić opis funduszu celowego? [Y/N]");
@@ -75,11 +63,10 @@ namespace BudgetApp.App.Managers
                 System.Console.WriteLine();
                 System.Console.WriteLine("Wpisz opis swojego funduszu celowego:");
                 System.Console.WriteLine();
-                string description = Console.ReadLine();
-                specialPurposeFund.PurposeDescription = description;
+                description = Console.ReadLine();
             }
             
-            return specialPurposeFund;
+            return _fundsService.EditSpecialPurposeFund(income, description);
         }
 
         public void FundsInstruction()
