@@ -1,6 +1,7 @@
 ﻿using BudgetApp.Managers;
 using BudgetApp.Domain.Models;
 using BudgetApp.App.Managers;
+using BudgetApp.App.Repositories;
 
 namespace BudgetApp
 {
