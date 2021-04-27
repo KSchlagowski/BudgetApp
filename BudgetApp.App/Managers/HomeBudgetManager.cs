@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
 using BudgetApp.Domain.Models;
+using System.Linq;
 
 namespace BudgetApp.App.Managers
 {
@@ -63,25 +64,18 @@ namespace BudgetApp.App.Managers
             return operation;
         }
 
-        public void AllHomeBudgetsView ()
-        {
-            foreach (var homeBudget in _homeBudgetService.GetAllHomeBudgets())
-            {
-                HomeBudgetByIdView(homeBudget.Id);
-            }
-        }
+        public void AllHomeBudgetsView () =>
+            _homeBudgetService.GetAllHomeBudgets().Where(hb => hb.Id != 0).ToList().ForEach(hb => HomeBudgetByIdView(hb.Id));
+
         public void HomeBudgetByIdView (int id)
         {
             List<HomeBudget> toShow = new List<HomeBudget>();
 
             bool isBudgetFound = false;
-            foreach (var homeBudget in _homeBudgetService.GetAllHomeBudgets())
+            foreach (var homeBudget in _homeBudgetService.GetAllHomeBudgets().Where(hb => hb.Id == id && hb.Id != 0))
             {
-                if (homeBudget.Id == id)
-                {
-                    toShow.Add(homeBudget);
-                    isBudgetFound = true;
-                }
+                toShow.Add(homeBudget);
+                isBudgetFound = true;
             }
 
             foreach (var homeBudget in toShow)
