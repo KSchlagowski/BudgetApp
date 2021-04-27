@@ -9,12 +9,12 @@ I got ideas on how this program should work from Michał Szafrański's "Finansow
 So far I have learned by coding BudgetApp:
   + C# objectivity including abstraction,
   + Accessibility of methods and variables,
-  + Basics of The Repository-Service Pattern
-  + Using LINQ
+  + Basics of The Repository-Service Pattern,
+  + Using System.LINQ library,
+  + JSON support by Newtonsoft.Json library
 
 I want to include in the future:
-  + Tests,
-  + Saving budgets and funds by JSON support,
+  + Integration tests,
   + MVC,
   + Dependency Injection,
   + SQL support,
