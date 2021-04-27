@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BudgetApp.App.Abstract;
 using BudgetApp.App.Concrete;
 using BudgetApp.App.Repositories;
@@ -75,16 +76,8 @@ namespace BudgetApp.App.Managers
             }
         }
 
-        public void ShowAllExpenses()
-        {
-            foreach (var expense in _expenseService.GetAllExpenses())
-            {
-                if (expense.Id != 0)
-                {
-                    ShowGetExpenseById(expense.Id);
-                }
-            }
-        }
+        public void ShowAllExpenses() => 
+            _expenseService.GetAllExpenses().Where(e => e.Id != 0).ToList().ForEach(e => ShowGetExpenseById(e.Id));
 
         public int ShowRemoveExpenseById (int id)
         {
