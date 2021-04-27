@@ -10,6 +10,7 @@ So far I have learned by coding BudgetApp:
   + C# objectivity including abstraction,
   + Accessibility of methods and variables,
   + Basics of The Repository-Service Pattern
+  + Using LINQ
 
 I want to include in the future:
   + Tests,
