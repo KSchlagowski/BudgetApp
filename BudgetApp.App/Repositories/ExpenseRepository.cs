@@ -1,58 +1,56 @@
 using System.Collections.Generic;
 using BudgetApp.App.Abstract;
+using BudgetApp.App.Concrete;
 using BudgetApp.Domain.Models;
+using System.Linq;
 
 namespace BudgetApp.App.Repositories
 {
     public class ExpenseRepository : IExpenseRepository
     {
         public List<Expense> expenses { get; set; }
+        private readonly IJsonService _jsonService;
 
         public ExpenseRepository()
         {
-            expenses = new List<Expense>();
-            expenses.Add(new Expense(0,0,""));
+            _jsonService = new JsonService();
+            expenses = _jsonService.LoadExpenses();;
+            // expenses.Add(new Expense(0,0,""));
         }
 
         public int AddNewExpense(decimal value, string description)
         {
-            int expenseId = expenses[expenses.Count-1].Id + 1;
+            int expenseId = expenses.Count + 1;
             Expense expense = new Expense(expenseId, value, description);
             expenses.Add(expense);
+            
+            _jsonService.SaveExpenses(expenses);
+            
             return expenseId;
         }
 
         public int AddNewExpense(Expense expense)
         {
             expenses.Add(expense);
+            _jsonService.SaveExpenses(expenses);
             return expense.Id;
         }
 
         public int RemoveExpenseById (int id)
         {
-            foreach (var expense in expenses)
+            var expense = GetExpenseById(id);
+            
+            if (expense != null)
             {
-                if (expense.Id == id && id != 0)
-                {
-                    expenses.Remove(expense);
-                    return id;
-                }
+                expenses.Remove(expense);
+                _jsonService.SaveExpenses(expenses);
+                return id;
             }
-
+            
             return -1;
         }
 
-        public Expense GetExpenseById (int id)
-        {
-            foreach (var expense in expenses)
-            {
-                if (expense.Id == id && id != 0)
-                {
-                    return expense;
-                }
-            }
-
-            return null;
-        }
+        public Expense GetExpenseById (int id) =>
+            expenses.FirstOrDefault(e => e.Id == id && id != 0);
     }
 }
